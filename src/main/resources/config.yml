@@ -1,0 +1,28 @@
+# Configuration of custom mobs
+# The duration of the effects is indicated in ticks
+custom-mobs:
+  zombie:
+    duration-effect: 300
+
+  cave-skeleton:
+    spawn-chance: 0.50
+    effect-chance: 0.35
+    duration-effect: 120
+
+  tropic-skeleton:
+    spawn-chance: 0.30
+    effect-chance: 0.35
+    duration-effect: 120
+
+  spider:
+    cooldown: 120
+
+  bat:
+    duration-effect: 6000
+
+# Mob boost settings during the full moon:
+# How many times more
+full-moon-mob-buffs:
+  health-multiplier: 1.5
+  damage-multiplier: 1.5
+  experience-multiplier: 2.0
