@@ -12,6 +12,7 @@ public class Listeners {
 
         pluginManager.registerEvents(new CauldronInteract(), Main.javaPlugin);
         pluginManager.registerEvents(new ComposterInteract(), Main.javaPlugin);
+        pluginManager.registerEvents(new AnvilInteract(), Main.javaPlugin);
 
         pluginManager.registerEvents(new SoupFix(), Main.javaPlugin);
 
