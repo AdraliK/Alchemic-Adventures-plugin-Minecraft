@@ -5,9 +5,33 @@ custom-mobs:
     duration-effect: 300
 
   cave-skeleton:
-    spawn-chance: 0.50
-    effect-chance: 0.35
-    duration-effect: 120
+    spawn-chance: 0.35
+    spawn-chances-by-depth:
+      depth-1: { 1: 50, 2: 50, 3: 0, 4: 0 }
+      depth-2: { 1: 20, 2: 37, 3: 27, 4: 10 }
+      depth-3: { 1: 10, 2: 27, 3: 37, 4: 20 }
+      depth-4: { 1: 0, 2: 0, 3: 50, 4: 50 }
+    levels:
+      1:
+        health: 20
+        effect-chance: 0.25
+        base-duration: 60
+        max-duration: 150
+      2:
+        health: 30
+        effect-chance: 0.50
+        base-duration: 80
+        max-duration: 190
+      3:
+        health: 35
+        effect-chance: 0.60
+        base-duration: 100
+        max-duration: 240
+      4:
+        health: 40
+        effect-chance: 0.75
+        base-duration: 120
+        max-duration: 280
 
   tropic-skeleton:
     spawn-chance: 0.30
