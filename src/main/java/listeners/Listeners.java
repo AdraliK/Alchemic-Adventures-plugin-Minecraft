@@ -26,5 +26,7 @@ public class Listeners {
         pluginManager.registerEvents(new TotemCooldown(), Main.javaPlugin);
         pluginManager.registerEvents(new FarmLandProtection(), Main.javaPlugin);
 
+        //pluginManager.registerEvents(new CustomPotions(), Main.javaPlugin);
+        pluginManager.registerEvents(new Explosions(), Main.javaPlugin);
     }
 }
