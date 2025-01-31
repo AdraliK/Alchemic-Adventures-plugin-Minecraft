@@ -18,7 +18,7 @@ import org.bukkit.projectiles.ProjectileSource;
 import java.util.Arrays;
 import java.util.Random;
 
-import static adralik.alchemicAndAdventures.Main.config;
+import static adralik.vanillaPlus.Main.config;
 
 public class TropicSkeleton implements Listener {
 

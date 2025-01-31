@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>adralik</groupId>
-    <artifactId>AlchemicAndAdventures</artifactId>
-    <version>1.1</version>
+    <artifactId>VanillaPlus</artifactId>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
-    <name>AlchemicAndAdventures</name>
+    <name>VanillaPlus</name>
 
     <properties>
         <java.version>21</java.version>
@@ -40,6 +40,11 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -87,7 +92,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.21.1-R0.1-SNAPSHOT</version>
+            <version>1.21.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

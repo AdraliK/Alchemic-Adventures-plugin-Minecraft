@@ -1,6 +1,6 @@
 package helpers;
 
-import adralik.alchemicAndAdventures.Main;
+import adralik.vanillaPlus.Main;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;

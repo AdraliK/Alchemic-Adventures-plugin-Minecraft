@@ -1,6 +1,6 @@
 package listeners;
 
-import adralik.alchemicAndAdventures.Main;
+import adralik.vanillaPlus.Main;
 import helpers.CauldronData;
 import helpers.potionColor.PotionColorMixer;
 import org.bukkit.*;

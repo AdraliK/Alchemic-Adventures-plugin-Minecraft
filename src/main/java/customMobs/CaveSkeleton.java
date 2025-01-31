@@ -1,6 +1,5 @@
 package customMobs;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.MemorySection;
@@ -17,11 +16,10 @@ import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import static adralik.alchemicAndAdventures.Main.config;
+import static adralik.vanillaPlus.Main.config;
 
 public class CaveSkeleton implements Listener {
 
@@ -116,7 +114,7 @@ public class CaveSkeleton implements Listener {
 
     private void setSkeletonHealth(Skeleton skeleton, int level){
         int health = config.getInt(configPath + ".levels." + level + ".health");
-        skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
+        skeleton.getAttribute(Attribute.MAX_HEALTH).setBaseValue(health);
         skeleton.setHealth(health);
     }
 

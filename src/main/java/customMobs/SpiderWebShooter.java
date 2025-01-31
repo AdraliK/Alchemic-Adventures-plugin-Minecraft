@@ -1,6 +1,6 @@
 package customMobs;
 
-import adralik.alchemicAndAdventures.Main;
+import adralik.vanillaPlus.Main;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static adralik.alchemicAndAdventures.Main.config;
+import static adralik.vanillaPlus.Main.config;
 
 public class SpiderWebShooter implements Listener {
 

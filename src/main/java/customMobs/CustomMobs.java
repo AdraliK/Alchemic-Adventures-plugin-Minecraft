@@ -1,8 +1,8 @@
 package customMobs;
 
-import adralik.alchemicAndAdventures.Main;
+import adralik.vanillaPlus.Main;
 
-import static adralik.alchemicAndAdventures.Main.pluginManager;
+import static adralik.vanillaPlus.Main.pluginManager;
 
 public class CustomMobs {
 

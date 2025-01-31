@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AlchemicAndAdventures.iml" filepath="$PROJECT_DIR$/AlchemicAndAdventures.iml" />
-      <module fileurl="file://$PROJECT_DIR$/alchemicandadventures.iml" filepath="$PROJECT_DIR$/alchemicandadventures.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/VanillaPlus.iml" filepath="$PROJECT_DIR$/.idea/VanillaPlus.iml" />
     </modules>
   </component>
 </project>

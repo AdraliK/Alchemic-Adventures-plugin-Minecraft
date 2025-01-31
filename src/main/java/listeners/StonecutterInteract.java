@@ -1,8 +1,7 @@
 package listeners;
 
-import adralik.alchemicAndAdventures.Main;
+import adralik.vanillaPlus.Main;
 import io.papermc.paper.event.entity.EntityMoveEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;

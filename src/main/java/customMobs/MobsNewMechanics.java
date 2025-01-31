@@ -13,7 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.Random;
 
-import static adralik.alchemicAndAdventures.Main.config;
+import static adralik.vanillaPlus.Main.config;
 
 public class MobsNewMechanics implements Listener {
 

@@ -7,7 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="alchemicandadventures" />
-        <module name="AlchemicAndAdventures" />
+        <module name="VanillaPlus" />
       </profile>
     </annotationProcessing>
   </component>

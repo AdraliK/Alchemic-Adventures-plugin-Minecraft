@@ -1,4 +1,4 @@
-package adralik.alchemicAndAdventures;
+package adralik.vanillaPlus;
 
 import customMobs.CustomMobs;
 import listeners.Listeners;

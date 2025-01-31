@@ -1,6 +1,6 @@
 package listeners;
 
-import adralik.alchemicAndAdventures.Main;
+import adralik.vanillaPlus.Main;
 import helpers.RandomLoot;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static adralik.alchemicAndAdventures.Main.config;
+import static adralik.vanillaPlus.Main.config;
 
 public class FullMoonMobsBuffs implements Listener {
 
@@ -82,7 +82,7 @@ public class FullMoonMobsBuffs implements Listener {
 
         // Увеличиваем здоровье всех враждебных мобов
         if (entity instanceof Monster) {
-            AttributeInstance healthAttribute = entity.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+            AttributeInstance healthAttribute = entity.getAttribute(Attribute.MAX_HEALTH);
             if (healthAttribute != null) {
                 double originalHealth = healthAttribute.getBaseValue();
                 double newHealth = originalHealth * healthMultiplier; // Увеличиваем здоровье на 50%
