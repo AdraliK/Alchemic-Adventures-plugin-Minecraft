@@ -19,6 +19,7 @@ public class Listeners {
 
         pluginManager.registerEvents(new MoonPhaseChecker(), Main.javaPlugin);
         pluginManager.registerEvents(new FullMoonMobsBuffs(), Main.javaPlugin);
+        pluginManager.registerEvents(new PaleGarden(), Main.javaPlugin);
 
         pluginManager.registerEvents(new TotemCooldown(), Main.javaPlugin);
         pluginManager.registerEvents(new FarmLandProtection(), Main.javaPlugin);
