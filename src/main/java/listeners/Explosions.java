@@ -7,7 +7,10 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.inventory.ItemStack;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -27,6 +30,7 @@ public class Explosions implements Listener {
         CraterSettings settings = craterSettings.get(event.getEntityType());
         if (settings != null) {
             modifyCrater(event, settings.radius(), settings.replacementRule());
+            modifyDrops(event.blockList());
         }
     }
 
@@ -56,8 +60,6 @@ public class Explosions implements Listener {
             case DIRT -> Material.COARSE_DIRT;
             case STONE -> Material.COBBLESTONE;
             case SAND -> Material.SANDSTONE;
-            case OAK_LOG, SPRUCE_LOG, BIRCH_LOG, JUNGLE_LOG, ACACIA_LOG, DARK_OAK_LOG, MANGROVE_LOG, CHERRY_LOG ->
-                    Material.COAL_BLOCK;
             default -> null;
         };
     }
@@ -67,6 +69,27 @@ public class Explosions implements Listener {
           case NETHERRACK -> Material.BLACKSTONE;
             default -> null;
         };
+    }
+
+    private void modifyDrops(List<Block> blocks) {
+        List<Material> listOfLogs = Arrays.asList(
+                Material.OAK_LOG, Material.STRIPPED_OAK_LOG,
+                Material.SPRUCE_LOG, Material.STRIPPED_SPRUCE_LOG,
+                Material.BIRCH_LOG, Material.STRIPPED_BIRCH_LOG,
+                Material.JUNGLE_LOG, Material.STRIPPED_JUNGLE_LOG,
+                Material.ACACIA_LOG, Material.STRIPPED_ACACIA_LOG,
+                Material.DARK_OAK_LOG, Material.STRIPPED_DARK_OAK_LOG,
+                Material.MANGROVE_LOG, Material.STRIPPED_MANGROVE_LOG,
+                Material.CHERRY_LOG, Material.STRIPPED_CHERRY_LOG
+        );
+        for (Block block : blocks) {
+            if (listOfLogs.contains(block.getType())){
+                block.setType(Material.AIR);
+                if (random.nextDouble() < 0.3) {
+                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.CHARCOAL));
+                }
+            }
+        }
     }
 
     @FunctionalInterface
