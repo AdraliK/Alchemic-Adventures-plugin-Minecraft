@@ -16,7 +16,6 @@ public class MoonPhaseChecker implements Listener {
         startMoonPhaseChecker();
     }
 
-    // Запускаем задачу, которая проверяет фазу луны каждые 5 минут (6000 тиков)
     private void startMoonPhaseChecker() {
         new BukkitRunnable() {
             @Override
@@ -25,7 +24,6 @@ public class MoonPhaseChecker implements Listener {
                         .filter(w -> w.getEnvironment() == World.Environment.NORMAL)
                         .findFirst().orElse(null);
                 if (world != null && isFullMoon(world) && !isStart) {
-                    // Действие при полной луне
                     playSoundAndMessageForAllPlayers(world);
                     isStart = true;
                 } else if (!isFullMoon(world) && isStart) {
@@ -33,10 +31,9 @@ public class MoonPhaseChecker implements Listener {
                     isStart = false;
                 }
             }
-        }.runTaskTimer(Main.javaPlugin, 0L, 3600L); // 3600
+        }.runTaskTimer(Main.javaPlugin, 0L, 60L);
     }
 
-    // Проверка фазы луны
     private boolean isFullMoon(World world) {
         long time = world.getFullTime();
         long days = time / 24000;
@@ -49,7 +46,6 @@ public class MoonPhaseChecker implements Listener {
         return phase == 0 && isNight;
     }
 
-    // Метод для проигрывания звука всем игрокам
     private void playSoundAndMessageForAllPlayers(World world) {
         for (Player player : world.getPlayers()) {
             player.sendTitle("§cПолная Луна!", "§cБудьте осторожны!", 10, 70, 20);

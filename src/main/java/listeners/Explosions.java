@@ -3,6 +3,7 @@ package listeners;
 import org.bukkit.Material;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Creeper;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +20,7 @@ public class Explosions implements Listener {
     private final double CHANCE = 0.5;
 
     Map<EntityType, CraterSettings> craterSettings = Map.of(
-            EntityType.CREEPER, new CraterSettings(4, this::getWorldReplacementMaterial),
+            EntityType.CREEPER, new CraterSettings(3, this::getWorldReplacementMaterial),
             EntityType.FIREBALL, new CraterSettings(2, this::getNetherReplacementMaterial),
             EntityType.END_CRYSTAL, new CraterSettings(6, this::getWorldReplacementMaterial)
     );
@@ -28,10 +29,19 @@ public class Explosions implements Listener {
     @EventHandler
     public void onExplosion(EntityExplodeEvent event) {
         CraterSettings settings = craterSettings.get(event.getEntityType());
+
         if (settings != null) {
-            modifyCrater(event, settings.radius(), settings.replacementRule());
+            int radius = calculateExplosionRadius(event);
+            modifyCrater(event, radius, settings.replacementRule());
             modifyDrops(event.blockList());
         }
+    }
+
+    private int calculateExplosionRadius(EntityExplodeEvent event) {
+        if (event.getEntity() instanceof Creeper creeper && creeper.isPowered()) {
+            return 6;
+        }
+        return craterSettings.get(event.getEntityType()).radius;
     }
 
     private void modifyCrater(EntityExplodeEvent event, int radius, MaterialReplacementRule replacementRule) {

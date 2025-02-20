@@ -31,7 +31,6 @@ public class TotemCooldown implements Listener {
             return;
         }
 
-        // Проверка наличия тотема в руке
         ItemStack mainHandItem = player.getInventory().getItemInMainHand();
         ItemStack offHandItem = player.getInventory().getItemInOffHand();
 
@@ -40,15 +39,13 @@ public class TotemCooldown implements Listener {
             long startTime = System.currentTimeMillis();
             totemCooldowns.put(playerId, startTime);
 
-            // Устанавливаем кулдаун на тотем
             player.setCooldown(Material.TOTEM_OF_UNDYING, (int) (cooldownDuration / 50));
 
-            // Удаляем тотем только из руки, где он был использован
             if (mainHandItem.getType() == Material.TOTEM_OF_UNDYING) {
-                player.getInventory().setItemInMainHand(null); // Удаляем тотем из основной руки
+                player.getInventory().setItemInMainHand(null);
             } else
             if (offHandItem.getType() == Material.TOTEM_OF_UNDYING) {
-                player.getInventory().setItemInOffHand(null); // Удаляем тотем из второстепенной руки
+                player.getInventory().setItemInOffHand(null);
             }
 
             // Запускаем задачу по удалению записи из map после окончания кулдауна
@@ -59,7 +56,6 @@ public class TotemCooldown implements Listener {
     }
 
 
-    // Обработчик при заходе игрока на сервер
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
@@ -78,16 +74,14 @@ public class TotemCooldown implements Listener {
         }
     }
 
-    // Обработчик события смерти игрока
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         UUID playerId = player.getUniqueId();
 
-        // Удаляем кулдаун на тотем при смерти игрока
         if (totemCooldowns.containsKey(playerId)) {
             totemCooldowns.remove(playerId);
-            player.setCooldown(Material.TOTEM_OF_UNDYING, 0); // Убираем кулдаун на тотем
+            player.setCooldown(Material.TOTEM_OF_UNDYING, 0);
         }
     }
 }
