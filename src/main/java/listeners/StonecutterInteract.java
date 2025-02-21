@@ -2,18 +2,25 @@ package listeners;
 
 import adralik.vanillaPlus.Main;
 import io.papermc.paper.event.entity.EntityMoveEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
 public class StonecutterInteract implements Listener {
+
+    private final Set<UUID> entitiesOnStonecutter = new HashSet<>();
 
     @EventHandler
     public void onEntityMove(EntityMoveEvent e) {
@@ -30,34 +37,44 @@ public class StonecutterInteract implements Listener {
         damageEntityFromStonecutter(player);
     }
 
-    private static void damageEntityFromStonecutter(LivingEntity livingEntity) {
+    private void damageEntityFromStonecutter(LivingEntity livingEntity) {
+        UUID entityUUID = livingEntity.getUniqueId();
         boolean isOnStonecutter = livingEntity.getLocation().getBlock().getType() == Material.STONECUTTER;
 
-        if (isOnStonecutter && !livingEntity.hasMetadata("onStonecutter")) {
-            livingEntity.setMetadata("onStonecutter", new FixedMetadataValue(Main.javaPlugin, true));
+        if (isOnStonecutter && !entitiesOnStonecutter.contains(entityUUID)) {
+            entitiesOnStonecutter.add(entityUUID);
             livingEntity.damage(1.0); // Моментальный урон
 
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    if (!livingEntity.hasMetadata("onStonecutter")) {
+                    if (!entitiesOnStonecutter.contains(entityUUID)) {
                         cancel();
                         return;
                     }
                     livingEntity.damage(1.0);
                 }
-            }.runTaskTimer(Main.javaPlugin, 20L, 20L); // Урон каждую секунду
-        } else if (!isOnStonecutter && livingEntity.hasMetadata("onStonecutter")) {
-            livingEntity.removeMetadata("onStonecutter", Main.javaPlugin);
+            }.runTaskTimer(Main.javaPlugin, 0L, 10L); // Урон каждую секунду
+
+        } else if (!isOnStonecutter && entitiesOnStonecutter.contains(entityUUID)) {
+            entitiesOnStonecutter.remove(entityUUID);
+        }
+    }
+
+    @EventHandler
+    public void onEntityDeath(EntityDeathEvent event) {
+        LivingEntity livingEntity = event.getEntity();
+        UUID livingEntityUUID = livingEntity.getUniqueId();
+
+        if (livingEntity.getLocation().getBlock().getType() == Material.STONECUTTER) {
+            entitiesOnStonecutter.remove(livingEntityUUID);
         }
     }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
-
         if (player.getLocation().getBlock().getType() == Material.STONECUTTER) {
-            player.removeMetadata("onStonecutter", Main.javaPlugin);
             event.setDeathMessage(player.getName() + " был безжалостно разрезан камнерезом!");
         }
     }
