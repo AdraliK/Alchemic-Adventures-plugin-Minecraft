@@ -22,13 +22,13 @@ import java.util.Set;
 
 import static adralik.vanillaPlus.Main.config;
 
-public class CaveSkeleton implements Listener {
+public class AmethystSkeleton implements Listener {
 
     private final Random random = new Random();
-    private final String configPath = "custom-mobs.cave-skeleton";
+    private final String configPath = "custom-mobs.amethyst-skeleton";
 
     @EventHandler
-    public void onCaveSkeletonSpawn(CreatureSpawnEvent event) {
+    public void onAmethystSkeletonSpawn(CreatureSpawnEvent event) {
         if (event.getEntityType() != EntityType.SKELETON) return;
 
         Skeleton skeleton = (Skeleton) event.getEntity();
@@ -44,7 +44,7 @@ public class CaveSkeleton implements Listener {
     }
 
     @EventHandler
-    public void onCaveSkeletonDamagePlayer(EntityDamageByEntityEvent event) {
+    public void onAmethystSkeletonDamagePlayer(EntityDamageByEntityEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
         if (!(event.getDamager() instanceof Projectile arrow)) return;
         if (player.isBlocking()) return;
