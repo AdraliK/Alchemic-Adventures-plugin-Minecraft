@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.potion.PotionEffect;
@@ -64,6 +65,19 @@ public class CaveSkeleton implements Listener {
         }
     }
 
+    @EventHandler
+    public void onAmethystSkeletonDeath(EntityDeathEvent event) {
+        if (!(event.getEntity() instanceof Skeleton skeleton)) return;
+        if (!(isAmethystSkeleton(skeleton))) return;
+
+        int level = getSkeletonLevelByHelmet(skeleton);
+        double dropChance = config.getDouble(configPath + ".levels." + level + ".drop-chance");
+
+        if (random.nextDouble() <= dropChance) {
+            event.getDrops().add(new ItemStack(Material.AMETHYST_SHARD));
+        }
+    }
+
     public void applyPotionEffect(Player player, int durationEffect, int maxDurationEffect) {
         PotionEffectType effectType = PotionEffectType.BLINDNESS;
         int newDuration = durationEffect;
@@ -95,9 +109,9 @@ public class CaveSkeleton implements Listener {
             for (String level : spawnChances) {
                 Object value = spawnChancesSection.get(level);
                 int skeletonLevel = Integer.parseInt(level);
-                int chance = (Integer) value;
+                double chance = (Double) value;
 
-                if (random.nextDouble() * 100 <= chance) {
+                if (random.nextDouble() <= chance) {
                     return skeletonLevel;
                 }
             }
@@ -139,6 +153,17 @@ public class CaveSkeleton implements Listener {
             case LARGE_AMETHYST_BUD -> 3;
             case AMETHYST_CLUSTER -> 4;
             default -> -1;
+        };
+    }
+
+    private boolean isAmethystSkeleton(Skeleton skeleton) {
+        if (skeleton.getEquipment().getHelmet() == null) return false;
+        return switch (skeleton.getEquipment().getHelmet().getType()) {
+            case SMALL_AMETHYST_BUD,
+                 MEDIUM_AMETHYST_BUD,
+                 LARGE_AMETHYST_BUD,
+                 AMETHYST_CLUSTER -> true;
+            default -> false;
         };
     }
 }
