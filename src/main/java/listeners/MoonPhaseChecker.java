@@ -49,7 +49,7 @@ public class MoonPhaseChecker implements Listener {
     private void playSoundAndMessageForAllPlayers(World world) {
         for (Player player : world.getPlayers()) {
             player.sendTitle("§cПолная Луна!", "§cБудьте осторожны!", 10, 70, 20);
-            player.playSound(player.getLocation(), Sound.ENTITY_WOLF_HOWL, 1.0f, 1.0f);
+            player.playSound(player.getLocation(), Sound.ENTITY_WOLF_HOWL, 0.35f, 1.0f);
         }
     }
 
