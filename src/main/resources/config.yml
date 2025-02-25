@@ -2,15 +2,16 @@
 # The duration of the effects is indicated in ticks
 custom-mobs:
   zombie:
-    duration-effect: 300
+    effect-chance: 0.35
+    duration-effect: 220
 
   amethyst-skeleton:
     spawn-chance: 0.35
     spawn-chances-by-depth:
-      depth-1: { 1: 0.50, 2: 0.50, 3: 0, 4: 0 }
+      depth-1: { 1: 0.50, 2: 0.50, 3: 0.0, 4: 0.0 }
       depth-2: { 1: 0.20, 2: 0.37, 3: 0.27, 4: 0.10 }
       depth-3: { 1: 0.10, 2: 0.27, 3: 0.37, 4: 0.20 }
-      depth-4: { 1: 0, 2: 0, 3: 0.50, 4: 0.50 }
+      depth-4: { 1: 0.0, 2: 0.0, 3: 0.50, 4: 0.50 }
     levels:
       1:
         health: 20
