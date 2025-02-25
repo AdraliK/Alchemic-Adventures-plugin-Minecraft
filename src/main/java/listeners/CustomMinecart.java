@@ -1,5 +1,6 @@
 package listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -8,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.util.Vector;
@@ -38,7 +41,7 @@ public class CustomMinecart implements Listener {
             player.setSneaking(false);
             minecart.addPassenger(player);
 
-            Vector direction = player.getLocation().getDirection().setY(0).normalize().multiply(0.4);
+            Vector direction = player.getLocation().getDirection().setY(0).normalize().multiply(0.2);
             minecart.setVelocity(direction);
         }
     }
@@ -61,5 +64,19 @@ public class CustomMinecart implements Listener {
 
         event.setCancelled(true);
         minecart.remove();
+    }
+
+    @EventHandler
+    public void onPlayerLookAtRail(PlayerToggleSneakEvent event) {
+        Player player = event.getPlayer();
+        Block targetBlock = player.getTargetBlockExact(5);
+
+        if (event.isSneaking() &&
+                targetBlock != null &&
+                targetBlock.getType().name().contains("RAIL") &&
+                player.getInventory().getItemInMainHand().getType() == Material.AIR) {
+
+            player.sendActionBar("Нажмите ПКМ, чтобы призвать вагонетку");
+        }
     }
 }

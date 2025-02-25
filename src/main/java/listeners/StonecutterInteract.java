@@ -41,7 +41,7 @@ public class StonecutterInteract implements Listener {
         UUID entityUUID = livingEntity.getUniqueId();
         boolean isOnStonecutter = livingEntity.getLocation().getBlock().getType() == Material.STONECUTTER;
 
-        if (isOnStonecutter && !entitiesOnStonecutter.contains(entityUUID)) {
+        if (isOnStonecutter) {
             entitiesOnStonecutter.add(entityUUID);
             livingEntity.damage(1.0); // Моментальный урон
 
@@ -56,7 +56,7 @@ public class StonecutterInteract implements Listener {
                 }
             }.runTaskTimer(Main.javaPlugin, 0L, 10L); // Урон каждую секунду
 
-        } else if (!isOnStonecutter && entitiesOnStonecutter.contains(entityUUID)) {
+        } else {
             entitiesOnStonecutter.remove(entityUUID);
         }
     }

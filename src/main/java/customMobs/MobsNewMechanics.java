@@ -19,6 +19,7 @@ public class MobsNewMechanics implements Listener {
 
     private final int batDurationEffect = config.getInt("custom-mobs.bat.duration-effect");
     private final int zombieDurationEffect = config.getInt("custom-mobs.zombie.duration-effect");
+    private final double zombieEffectChance = config.getDouble("custom-mobs.zombie.effect-chance");
     private final Random random = new Random();
     private final int[] expRandom = {3, 3, 4};
 
@@ -34,12 +35,11 @@ public class MobsNewMechanics implements Listener {
 
     @EventHandler
     public void onZombieDamagePlayer(EntityDamageByEntityEvent e) {
-        if (!(e.getEntity() instanceof Player)) return;
-
-        Player player = (Player) e.getEntity();
+        if (!(e.getEntity() instanceof Player player)) return;
         if (e.getDamager().getType() != EntityType.ZOMBIE) return;
+        if (e.getFinalDamage() <= 0) return;
 
-        if (random.nextDouble() <= 0.35) {
+        if (random.nextDouble() <= zombieEffectChance) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, zombieDurationEffect, 5));
         }
     }
