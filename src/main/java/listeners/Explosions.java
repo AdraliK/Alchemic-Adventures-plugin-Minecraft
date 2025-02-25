@@ -10,7 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -82,18 +81,8 @@ public class Explosions implements Listener {
     }
 
     private void modifyDrops(List<Block> blocks) {
-        List<Material> listOfLogs = Arrays.asList(
-                Material.OAK_LOG, Material.STRIPPED_OAK_LOG,
-                Material.SPRUCE_LOG, Material.STRIPPED_SPRUCE_LOG,
-                Material.BIRCH_LOG, Material.STRIPPED_BIRCH_LOG,
-                Material.JUNGLE_LOG, Material.STRIPPED_JUNGLE_LOG,
-                Material.ACACIA_LOG, Material.STRIPPED_ACACIA_LOG,
-                Material.DARK_OAK_LOG, Material.STRIPPED_DARK_OAK_LOG,
-                Material.MANGROVE_LOG, Material.STRIPPED_MANGROVE_LOG,
-                Material.CHERRY_LOG, Material.STRIPPED_CHERRY_LOG
-        );
         for (Block block : blocks) {
-            if (listOfLogs.contains(block.getType())){
+            if (block.getType().name().contains("_LOG")){
                 block.setType(Material.AIR);
                 if (random.nextDouble() < 0.3) {
                     block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.CHARCOAL));
