@@ -1,16 +1,16 @@
 package customMobs;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
-import org.bukkit.entity.Skeleton;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
@@ -44,39 +44,72 @@ public class TropicSkeleton implements Listener {
     };
 
     @EventHandler
-    public void onWarmSkeletonSpawn(CreatureSpawnEvent e) {
+    public void onTropicSkeletonSpawn(CreatureSpawnEvent e) {
+        if (random.nextDouble() > spawnChance) return;
         if (e.getEntityType() != EntityType.SKELETON) return;
 
         Skeleton skeleton = (Skeleton) e.getEntity();
         Biome biome = skeleton.getWorld().getBiome(skeleton.getLocation());
 
         if (!Arrays.asList(Biomes).contains(biome)) return;
-
-        if (random.nextDouble() <= spawnChance) {
-            skeleton.getEquipment().setHelmet(new ItemStack(Material.AZALEA));
-        }
+        skeleton.getEquipment().setHelmet(new ItemStack(Material.AZALEA));
     }
 
     @EventHandler
-    public void onWarmSkeletonDamagePlayer(EntityDamageByEntityEvent e) {
-        if (!(e.getEntity() instanceof Player)) return;
-        if (!(e.getDamager() instanceof Projectile)) return;
-        // Проверяем, что урон действительно нанесен, а не заблокирован щитом
-        if (e.getFinalDamage() <= 0) return;
+    public void onProjectileHit(ProjectileHitEvent event) {
+        if (random.nextDouble() > effectChance) return;
 
-        Player player = (Player) e.getEntity();
-        Projectile arrow = (Projectile) e.getDamager();
-        ProjectileSource shooter = arrow.getShooter();
+        ProjectileSource shooter = event.getEntity().getShooter();
 
-        if (!(shooter instanceof Skeleton)) return;
+        if (!(shooter instanceof Skeleton skeleton)) return;
+        if (isNotTropicSkeleton(skeleton)) return;
+        if (event.getHitEntity() instanceof Player player && player.isBlocking()) return;
 
-        Skeleton skeleton = (Skeleton) shooter;
+        Location hitLocation = event.getEntity().getLocation();
 
-        if (skeleton.getEquipment().getHelmet() == null) return;
-        if (skeleton.getEquipment().getHelmet().getType() == Material.AZALEA){
-            if (random.nextDouble() <= effectChance) {
-                player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, durationEffect, 1));
-            }
+        if (event.getHitEntity() instanceof LivingEntity) {
+            hitLocation = event.getHitEntity().getLocation();
         }
+
+        ItemStack potionItem = getLingeringPoisonPotion();
+        splashPotion(hitLocation, potionItem);
+    }
+
+    private void splashPotion(Location hitLocation, ItemStack potionItem) {
+        ThrownPotion thrownPotion = hitLocation.getWorld().spawn(hitLocation, ThrownPotion.class);
+        thrownPotion.setItem(potionItem);
+        thrownPotion.splash();
+    }
+
+    private ItemStack getLingeringPoisonPotion() {
+        ItemStack potionItem = new ItemStack(Material.LINGERING_POTION);
+        PotionMeta potionMeta = (PotionMeta) potionItem.getItemMeta();
+
+        potionMeta.addCustomEffect(new PotionEffect(
+                PotionEffectType.POISON,
+                durationEffect,
+                1
+        ), true);
+
+        potionItem.setItemMeta(potionMeta);
+        return potionItem;
+    }
+
+    @EventHandler
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        if (!(event.getDamager() instanceof Arrow arrow)) return;
+
+        if (!(arrow.getShooter() instanceof Skeleton skeleton)) return;
+        if (isNotTropicSkeleton(skeleton)) return;
+
+        if (!(event.getEntity() instanceof Player player)) return;
+        if (!player.isBlocking()) return;
+
+        arrow.remove();
+    }
+
+    private boolean isNotTropicSkeleton(Skeleton skeleton) {
+        if (skeleton.getEquipment().getHelmet() == null) return true;
+        return skeleton.getEquipment().getHelmet().getType() != Material.AZALEA;
     }
 }

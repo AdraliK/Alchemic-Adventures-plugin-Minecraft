@@ -39,9 +39,9 @@ custom-mobs:
         max-duration: 280
 
   tropic-skeleton:
-    spawn-chance: 0.30
-    effect-chance: 0.35
-    duration-effect: 120
+    spawn-chance: 0.35
+    effect-chance: 0.50
+    duration-effect: 40
 
   spider:
     cooldown: 120

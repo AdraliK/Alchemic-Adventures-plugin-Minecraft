@@ -5,6 +5,7 @@ import io.papermc.paper.event.entity.EntityMoveEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,6 +26,7 @@ public class StonecutterInteract implements Listener {
     @EventHandler
     public void onEntityMove(EntityMoveEvent e) {
         Entity entity = e.getEntity();
+        if (entity.getType() == EntityType.SILVERFISH) return;
         if (!(entity instanceof LivingEntity livingEntity)) {
             return;
         }
