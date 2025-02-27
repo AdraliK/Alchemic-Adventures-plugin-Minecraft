@@ -1,4 +1,4 @@
-package listeners;
+package listeners.blocks;
 
 import org.bukkit.Material;
 import org.bukkit.Particle;

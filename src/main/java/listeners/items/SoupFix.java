@@ -1,4 +1,4 @@
-package listeners;
+package listeners.items;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

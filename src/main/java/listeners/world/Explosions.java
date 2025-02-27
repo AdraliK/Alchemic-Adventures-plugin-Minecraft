@@ -1,4 +1,4 @@
-package listeners;
+package listeners.world;
 
 import org.bukkit.Material;
 import org.bukkit.Location;
@@ -49,11 +49,12 @@ public class Explosions implements Listener {
         for (int x = -radius; x <= radius; x++) {
             for (int y = -radius; y <= radius; y++) {
                 for (int z = -radius; z <= radius; z++) {
+                    if (random.nextDouble() > CHANCE) continue;
+
                     Location blockLocation = explosionCenter.clone().add(x, y, z);
                     Block block = blockLocation.getBlock();
 
                     if (blockLocation.distance(explosionCenter) > radius) continue;
-                    if (random.nextDouble() > CHANCE) continue;
 
                     Material replacement = replacementRule.getReplacement(block.getType());
                     if (replacement != null) {
