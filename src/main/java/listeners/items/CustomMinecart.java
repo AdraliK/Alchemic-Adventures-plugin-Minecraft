@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
@@ -51,6 +52,18 @@ public class CustomMinecart implements Listener {
         if (!customMinecarts.contains(minecart.getUniqueId())) return;
 
         player.teleport(player.getLocation().add(0, 0.5, 0));
+        customMinecarts.remove(minecart.getUniqueId());
+        minecart.remove();
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+
+        if (!player.isInsideVehicle()) return;
+        if (!(player.getVehicle() instanceof Minecart minecart)) return;
+        if (!customMinecarts.contains(minecart.getUniqueId())) return;
+
         customMinecarts.remove(minecart.getUniqueId());
         minecart.remove();
     }
