@@ -1,4 +1,4 @@
-package listeners;
+package listeners.world;
 
 import adralik.vanillaPlus.Main;
 import org.bukkit.Bukkit;

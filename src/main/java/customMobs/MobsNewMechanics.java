@@ -35,13 +35,12 @@ public class MobsNewMechanics implements Listener {
 
     @EventHandler
     public void onZombieDamagePlayer(EntityDamageByEntityEvent e) {
+        if (random.nextDouble() > zombieEffectChance) return;
         if (!(e.getEntity() instanceof Player player)) return;
         if (e.getDamager().getType() != EntityType.ZOMBIE) return;
         if (e.getFinalDamage() <= 0) return;
 
-        if (random.nextDouble() <= zombieEffectChance) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, zombieDurationEffect, 5));
-        }
+        player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, zombieDurationEffect, 5));
     }
 
     @EventHandler

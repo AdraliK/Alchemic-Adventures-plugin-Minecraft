@@ -1,4 +1,4 @@
-package listeners;
+package listeners.blocks;
 
 import adralik.vanillaPlus.Main;
 import helpers.CauldronData;

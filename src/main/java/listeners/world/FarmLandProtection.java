@@ -1,4 +1,4 @@
-package listeners;
+package listeners.world;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
