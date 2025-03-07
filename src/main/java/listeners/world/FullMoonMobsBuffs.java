@@ -1,4 +1,4 @@
-package listeners;
+package listeners.world;
 
 import adralik.vanillaPlus.Main;
 import helpers.RandomLoot;
@@ -11,9 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Arrays;
@@ -96,7 +94,6 @@ public class FullMoonMobsBuffs implements Listener {
         if (entity instanceof Creeper) {
             Creeper creeper = (Creeper) entity;
             creeper.setPowered(true); // Делаем крипера заряженным
-            creeper.setMetadata("FullMoonCreeper", new FixedMetadataValue(Main.javaPlugin, true));
         }
     }
 
@@ -148,22 +145,6 @@ public class FullMoonMobsBuffs implements Listener {
         if (entity instanceof Silverfish) return true;
         if (world.getEnvironment() != World.Environment.NORMAL) return true;
         return false;
-    }
-
-    @EventHandler
-    public void onCreeperExplode(EntityExplodeEvent event) {
-        Entity entity = event.getEntity();
-
-        // Проверяем, что это крипер
-        if (entity instanceof Creeper) {
-            Creeper creeper = (Creeper) entity;
-
-            // Проверяем, есть ли у крипера метаданные "FullMoonCreeper"
-            if (creeper.hasMetadata("FullMoonCreeper")) {
-                // Логика для предотвращения выпадения голов
-                event.setYield(0); // Отменить выпадение блоков и предметов
-            }
-        }
     }
 
     private String bagBase64 = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0" +
