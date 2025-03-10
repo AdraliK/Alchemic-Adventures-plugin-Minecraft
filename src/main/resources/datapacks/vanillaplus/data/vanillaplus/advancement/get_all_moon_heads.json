@@ -1,0 +1,98 @@
+{
+  "parent": "vanillaplus:moon",
+  "criteria": {
+	"get_bag_head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "id": "minecraft:player_head",
+			"components": {
+			  "minecraft:profile": {
+				"name": "CustomHead",
+				"properties": [
+				  {
+					"name": "textures",
+					"value": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNiM2FjZGMxMWNhNzQ3YmY3MTBlNTlmNGM4ZTliM2Q5NDlmZGQzNjRjNjg2OTgzMWNhODc4ZjA3NjNkMTc4NyJ9fX0="
+				  }
+				]
+			  }
+			}
+          }
+        ]
+      }
+    },
+    "get_cheese_head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "id": "minecraft:player_head",
+			"components": {
+			  "minecraft:profile": {
+				"name": "CustomHead",
+				"properties": [
+				  {
+					"name": "textures",
+					"value": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzE1MzlkYmNkMzZmODc3MjYzMmU1NzM5ZTJlNTE0ODRlZGYzNzNjNTU4ZDZmYjJjNmI2MWI3MmI3Y2FhIn19fQ=="
+				  }
+				]
+			  }
+			}
+          }
+        ]
+      }
+    },
+	"get_chest_head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "id": "minecraft:player_head",
+			"components": {
+			  "minecraft:profile": {
+				"name": "CustomHead",
+				"properties": [
+				  {
+					"name": "textures",
+					"value": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjc0ZDEzYjUxMDE2OGM3YWNiNDRiNjQ0MTY4NmFkN2FiMWNiNWI3NDg4ZThjZGY5ZDViMjJiNDdjNDgzZjIzIn19fQ=="
+				  }
+				]
+			  }
+			}
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["get_bag_head"],
+    ["get_cheese_head"],
+	["get_chest_head"]
+  ],
+  "display": {
+    "icon": {
+      "id": "minecraft:player_head",
+	  "components": {
+		"minecraft:profile": {
+		  "properties": [
+			{
+			  "name": "textures",
+			  "value": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTM1ZDE3MGFjODRhM2I4NzYxYTllYWE4YzAwZjdmOTc0NmE0NTQyOTI4NjNjNGY5Njc3MzQ1MWRlM2M4ZTUzMSJ9fX0="
+			}
+		  ]
+		}
+	  }
+    },
+    "title": {
+      "text": "Лунная коллекция"
+    },
+    "description": {
+      "text": "Получи все уникальные предметы с события «Полная луна»"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  }
+}

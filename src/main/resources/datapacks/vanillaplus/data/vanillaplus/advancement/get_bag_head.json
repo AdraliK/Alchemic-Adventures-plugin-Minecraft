@@ -1,0 +1,51 @@
+{
+  "parent": "vanillaplus:get_all_moon_heads",
+  "criteria": {
+    "get_bag_head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "id": "minecraft:player_head",
+			"components": {
+			  "minecraft:profile": {
+				"name": "CustomHead",
+				"properties": [
+				  {
+					"name": "textures",
+					"value": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNiM2FjZGMxMWNhNzQ3YmY3MTBlNTlmNGM4ZTliM2Q5NDlmZGQzNjRjNjg2OTgzMWNhODc4ZjA3NjNkMTc4NyJ9fX0="
+				  }
+				]
+			  }
+			}
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:player_head",
+	  "components": {
+		"minecraft:profile": {
+		  "properties": [
+			{
+			  "name": "textures",
+			  "value": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNiM2FjZGMxMWNhNzQ3YmY3MTBlNTlmNGM4ZTliM2Q5NDlmZGQzNjRjNjg2OTgzMWNhODc4ZjA3NjNkMTc4NyJ9fX0="
+			}
+		  ]
+		}
+	  }
+    },
+    "title": {
+      "text": "Таинственный груз"
+    },
+    "description": {
+      "text": "Выбей редкий предмет в события «Полная луна»"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  }
+}
