@@ -157,7 +157,7 @@ public class FullMoonMobsBuffs implements Listener {
             "leHR1cmUvNjc0ZDEzYjUxMDE2OGM3YWNiNDRiNjQ0MTY4NmFkN2FiMWNiNWI3NDg4ZThjZGY5ZDViMjJiNDdjNDgzZjIzIn19fQ==";
 
     List<List<RandomLoot>> randomLootList = Arrays.asList(
-            Arrays.asList(
+/*            Arrays.asList(
                     new RandomLoot(Material.REDSTONE, 35),
                     new RandomLoot(Material.GLOWSTONE_DUST, 35),
                     new RandomLoot(Material.LAPIS_LAZULI, 35)
@@ -172,9 +172,9 @@ public class FullMoonMobsBuffs implements Listener {
                     new RandomLoot(Material.IRON_INGOT, 15),
                     new RandomLoot(Material.GOLD_INGOT, 15)
             ),
-            List.of(new RandomLoot(Material.SLIME_BALL, 8)),
+            List.of(new RandomLoot(Material.SLIME_BALL, 8)),*/
             Arrays.asList(
-                    new RandomLoot("§eПрохудившийся мешок", "§7☽ Полная луна", bagBase64, 5),
+                    new RandomLoot("§eПрохудившийся мешок", "§7☽ Полная луна", bagBase64, 100),
                     new RandomLoot("§eОсколок сыра", "§7☽ Полная луна", cheeseBase64, 5),
                     new RandomLoot("§eЗаплесневевший сундук", "§7☽ Полная луна", chestBase64, 5)
             )

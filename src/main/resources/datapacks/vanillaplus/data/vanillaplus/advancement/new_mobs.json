@@ -1,0 +1,23 @@
+{
+  "parent": "vanillaplus:root",
+  "criteria": {
+    "dummy": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:creeper_head"
+    },
+    "title": {
+      "text": "Охотник на монстров"
+    },
+    "description": {
+      "text": "Изучай поведение новый монстров!"
+    },
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}
