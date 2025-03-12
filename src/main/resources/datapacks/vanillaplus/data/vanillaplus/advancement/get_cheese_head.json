@@ -46,6 +46,6 @@
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
-    "hidden": false
+    "hidden": true
   }
 }

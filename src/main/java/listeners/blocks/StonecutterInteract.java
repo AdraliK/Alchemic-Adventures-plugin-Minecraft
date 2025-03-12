@@ -1,6 +1,7 @@
 package listeners.blocks;
 
 import adralik.vanillaPlus.Main;
+import helpers.DatapackUtils;
 import io.papermc.paper.event.entity.EntityMoveEvent;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -45,6 +46,10 @@ public class StonecutterInteract implements Listener {
         if (isOnStonecutter) {
             entitiesOnStonecutter.add(entityUUID);
             livingEntity.damage(1.0); // Моментальный урон
+
+            if (livingEntity instanceof Player player) {
+                DatapackUtils.grantAdvancement(player, "stonecutter_damage");
+            }
 
             new BukkitRunnable() {
                 @Override

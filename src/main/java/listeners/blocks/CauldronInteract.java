@@ -2,6 +2,7 @@ package listeners.blocks;
 
 import adralik.vanillaPlus.Main;
 import helpers.CauldronData;
+import helpers.DatapackUtils;
 import helpers.potionColor.PotionColorMixer;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -152,6 +153,7 @@ public class CauldronInteract implements Listener {
 
         e.setCancelled(true);
         playSound(block, Sound.ITEM_BOTTLE_FILL);
+        DatapackUtils.grantAdvancement(e.getPlayer(), "cauldron_potion");
     }
 
     private void givePlayerPotion(PlayerInteractEvent e, int index) {

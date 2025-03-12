@@ -7,13 +7,13 @@
   },
   "display": {
     "icon": {
-      "id": "minecraft:creeper_head"
+      "id": "minecraft:oak_sign"
     },
     "title": {
-      "text": "Исследователь существ"
+      "text": "Новые механики блоков"
     },
     "description": {
-      "text": "Изучай поведение новых существ!"
+      "text": "Изучай новые взаимодействия с блоками и не только"
     },
     "frame": "task",
     "show_toast": false,
