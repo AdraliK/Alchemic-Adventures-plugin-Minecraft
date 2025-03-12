@@ -1,25 +1,25 @@
 {
-  "parent": "vanillaplus:amethyst_skeleton_1",
+  "parent": "vanillaplus:kill_amethyst_skeleton_2",
   "criteria": {
-    "kill_amethyst_skeleton": {
+    "kill": {
       "trigger": "minecraft:player_killed_entity",
       "conditions": {
         "entity": {
           "type": "minecraft:skeleton",
-          "nbt": "{Tags:[\"amethyst_skeleton_2\"]}"
+          "nbt": "{Tags:[\"amethyst_skeleton_3\"]}"
         }
       }
     }
   },
   "display": {
     "icon": {
-      "id": "minecraft:medium_amethyst_bud"
+      "id": "minecraft:large_amethyst_bud"
     },
     "title": {
-      "text": "Тёмные Служители"
+      "text": "Мрак Аметиста"
     },
     "description": {
-      "text": "Убей аметистового скелета 2 уровня"
+      "text": "Убей «Аметистового скелета» 3 уровня"
     },
     "frame": "task",
     "show_toast": true,

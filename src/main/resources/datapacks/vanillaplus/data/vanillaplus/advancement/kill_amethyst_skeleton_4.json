@@ -1,7 +1,7 @@
 {
-  "parent": "vanillaplus:amethyst_skeleton_3",
+  "parent": "vanillaplus:kill_amethyst_skeleton_3",
   "criteria": {
-    "kill_amethyst_skeleton": {
+    "kill": {
       "trigger": "minecraft:player_killed_entity",
       "conditions": {
         "entity": {
@@ -19,7 +19,7 @@
       "text": "Царь Подземных Глубин"
     },
     "description": {
-      "text": "Убей аметистового скелета 4 уровня"
+      "text": "Убей «Аметистового скелета» 4 уровня"
     },
     "frame": "task",
     "show_toast": true,

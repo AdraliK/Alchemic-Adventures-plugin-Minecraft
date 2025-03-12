@@ -1,5 +1,6 @@
 package customMobs;
 
+import helpers.DatapackUtils;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.MemorySection;
@@ -63,6 +64,7 @@ public class AmethystSkeleton implements Listener {
 
         if (random.nextDouble() <= effectChance) {
             applyPotionEffect(player, durationEffect, maxDurationEffect);
+            DatapackUtils.grantAdvancement(player, "amethyst_skeleton_effect");
         }
     }
 
