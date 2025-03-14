@@ -1,0 +1,23 @@
+{
+  "parent": "vanillaplus:new_mobs",
+  "criteria": {
+    "zombie_damage": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:rotten_flesh"
+    },
+    "title": {
+      "text": "Зараза заразная!"
+    },
+    "description": {
+      "text": "Получи эффект тошноты от зомби"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  }
+}

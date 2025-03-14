@@ -1,5 +1,6 @@
 package customMobs;
 
+import helpers.DatapackUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
@@ -30,7 +31,7 @@ public class TropicSkeleton implements Listener {
 
     private final Random random = new Random();
 
-    private Biome[] Biomes = new Biome[] {
+    private Biome[] biomes = new Biome[] {
             Biome.DESERT,
             Biome.SAVANNA,
             Biome.SAVANNA_PLATEAU,
@@ -51,8 +52,9 @@ public class TropicSkeleton implements Listener {
         Skeleton skeleton = (Skeleton) e.getEntity();
         Biome biome = skeleton.getWorld().getBiome(skeleton.getLocation());
 
-        if (!Arrays.asList(Biomes).contains(biome)) return;
+        if (!Arrays.asList(biomes).contains(biome)) return;
         skeleton.getEquipment().setHelmet(new ItemStack(Material.AZALEA));
+        skeleton.addScoreboardTag("tropic_skeleton");
     }
 
     @EventHandler
@@ -69,6 +71,9 @@ public class TropicSkeleton implements Listener {
 
         if (event.getHitEntity() instanceof LivingEntity) {
             hitLocation = event.getHitEntity().getLocation();
+        }
+        if (event.getHitEntity() instanceof Player player) {
+            DatapackUtils.grantAdvancement(player, "tropic_skeleton_effect");
         }
 
         ItemStack potionItem = getLingeringPoisonPotion();

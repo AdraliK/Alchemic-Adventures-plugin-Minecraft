@@ -1,0 +1,51 @@
+{
+  "parent": "vanillaplus:get_all_moon_heads",
+  "criteria": {
+    "get_chest_head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "id": "minecraft:player_head",
+			"components": {
+			  "minecraft:profile": {
+				"name": "CustomHead",
+				"properties": [
+				  {
+					"name": "textures",
+					"value": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjc0ZDEzYjUxMDE2OGM3YWNiNDRiNjQ0MTY4NmFkN2FiMWNiNWI3NDg4ZThjZGY5ZDViMjJiNDdjNDgzZjIzIn19fQ=="
+				  }
+				]
+			  }
+			}
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:player_head",
+	  "components": {
+		"minecraft:profile": {
+		  "properties": [
+			{
+			  "name": "textures",
+			  "value": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjc0ZDEzYjUxMDE2OGM3YWNiNDRiNjQ0MTY4NmFkN2FiMWNiNWI3NDg4ZThjZGY5ZDViMjJiNDdjNDgzZjIzIn19fQ=="
+			}
+		  ]
+		}
+	  }
+    },
+    "title": {
+      "text": "Запечатано плесенью"
+    },
+    "description": {
+      "text": "Выбей редкий предмет в события «Полная луна»"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  }
+}

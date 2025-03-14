@@ -1,0 +1,23 @@
+{
+  "parent": "vanillaplus:new_func_blocks",
+  "criteria": {
+    "fix_anvil": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:anvil"
+    },
+    "title": {
+      "text": "Не сломать - так починить!"
+    },
+    "description": {
+      "text": "Используй 3 железных слитка, чтобы починить наковальню"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+	"hidden": false
+  }
+}

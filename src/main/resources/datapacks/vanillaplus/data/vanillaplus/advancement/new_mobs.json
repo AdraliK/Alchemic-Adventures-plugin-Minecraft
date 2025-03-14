@@ -1,0 +1,22 @@
+{
+  "parent": "vanillaplus:root",
+  "criteria": {
+    "dummy": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:creeper_head"
+    },
+    "title": {
+      "text": "Исследователь существ"
+    },
+    "description": {
+      "text": "Изучай поведение новых существ!"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

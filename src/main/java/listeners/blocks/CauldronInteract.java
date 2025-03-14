@@ -2,6 +2,7 @@ package listeners.blocks;
 
 import adralik.vanillaPlus.Main;
 import helpers.CauldronData;
+import helpers.DatapackUtils;
 import helpers.potionColor.PotionColorMixer;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -99,7 +100,7 @@ public class CauldronInteract implements Listener {
         if (cauldronData.getLevel() < 3) {
             int index = getCauldronDataIndex(block.getLocation());
             if (!cauldronDataList.get(index).addPotion(item)) {
-                sendActionMessage(e.getPlayer(), "Такое зелье уже налито");
+                sendActionMessage(e.getPlayer(), "Зелье такого типа уже налито");
                 e.setCancelled(true);
                 return;
             }
@@ -118,15 +119,17 @@ public class CauldronInteract implements Listener {
         Levelled cauldronData = (Levelled) block.getBlockData();
         if (cauldronData.getLevel() >= 2) {
             createCustomPotion(block.getLocation(), e.getPlayer());
+            playSound(block, Sound.BLOCK_BREWING_STAND_BREW);
             resetCauldron(e, block);
         }
+
+        DatapackUtils.grantAdvancement(e.getPlayer(), "cauldron_potion");
     }
 
     private void resetCauldron(PlayerInteractEvent e, Block block) {
         block.setType(Material.CAULDRON);
         e.setCancelled(true);
         adjustItemStack(e.getItem(), e.getPlayer());
-        playSound(block, Sound.BLOCK_BREWING_STAND_BREW);
         int index = getCauldronDataIndex(block.getLocation());
         if (index != -1) {
             cauldronDataList.get(index).stopParticleEffect();

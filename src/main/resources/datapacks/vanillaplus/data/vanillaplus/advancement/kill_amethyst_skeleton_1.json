@@ -1,0 +1,29 @@
+{
+  "parent": "vanillaplus:amethyst_skeleton_effect",
+  "criteria": {
+    "kill": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:skeleton",
+          "nbt": "{Tags:[\"amethyst_skeleton_1\"]}"
+        }
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:small_amethyst_bud"
+    },
+    "title": {
+      "text": "Скиталец Пещер"
+    },
+    "description": {
+      "text": "Убей «Аметистового скелета» 1 уровня"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  }
+}

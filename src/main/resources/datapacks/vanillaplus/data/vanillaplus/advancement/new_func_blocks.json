@@ -1,0 +1,22 @@
+{
+  "parent": "vanillaplus:root",
+  "criteria": {
+    "dummy": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:oak_sign"
+    },
+    "title": {
+      "text": "Новые механики блоков"
+    },
+    "description": {
+      "text": "Изучай новые взаимодействия с блоками и не только"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  }
+}

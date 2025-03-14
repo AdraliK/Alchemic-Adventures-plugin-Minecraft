@@ -1,5 +1,6 @@
 package listeners.blocks;
 
+import helpers.DatapackUtils;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
@@ -56,6 +57,7 @@ public class AnvilInteract implements Listener {
                     block.setBlockData(newData);
                 }
                 block.getWorld().playSound(block.getLocation(), Sound.BLOCK_ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 2.0f);
+                DatapackUtils.grantAdvancement(e.getPlayer(), "fix_anvil");
                 e.setCancelled(true);
             }
         }

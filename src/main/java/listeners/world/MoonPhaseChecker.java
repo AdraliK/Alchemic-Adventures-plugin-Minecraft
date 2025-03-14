@@ -1,6 +1,7 @@
 package listeners.world;
 
 import adralik.vanillaPlus.Main;
+import helpers.DatapackUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -50,6 +51,7 @@ public class MoonPhaseChecker implements Listener {
         for (Player player : world.getPlayers()) {
             player.sendTitle("§cПолная Луна!", "§cБудьте осторожны!", 10, 70, 20);
             player.playSound(player.getLocation(), Sound.ENTITY_WOLF_HOWL, 0.35f, 1.0f);
+            DatapackUtils.grantAdvancement(player, "moon");
         }
     }
 
