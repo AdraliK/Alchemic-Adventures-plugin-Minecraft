@@ -1,0 +1,23 @@
+{
+  "parent": "vanillaplus:new_func_blocks",
+  "criteria": {
+    "stonecutter_damage": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:stonecutter"
+    },
+    "title": {
+      "text": "Камнерезный массаж"
+    },
+    "description": {
+      "text": "Получи урон от камнереза"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+	"hidden": false
+  }
+}

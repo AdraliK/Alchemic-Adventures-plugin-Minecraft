@@ -1,0 +1,23 @@
+{
+  "parent": "vanillaplus:new_mobs",
+  "criteria": {
+    "spider_cobweb": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:cobweb"
+    },
+    "title": {
+      "text": "Сетевые проблемы"
+    },
+    "description": {
+      "text": "Стань добычей паука, угодив в его сеть"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  }
+}

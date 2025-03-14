@@ -17,12 +17,10 @@ public final class Main extends JavaPlugin implements Listener {
     public static PluginManager pluginManager;
     public static JavaPlugin javaPlugin;
     public static FileConfiguration config;
-    private static Main instance;
 
     @Override
     public void onEnable() {
         javaPlugin = this;
-        instance = this;
 
         getConfig().options().copyDefaults();
         saveDefaultConfig();
@@ -31,10 +29,9 @@ public final class Main extends JavaPlugin implements Listener {
         Listeners.init();
         CustomMobs.init();
         Bukkit.getPluginManager().registerEvents(this, this);
-    }
 
-    public static Main getInstance() {
-        return instance;
+        //DatapackUtils.setupDatapack(this, getServer().getWorldContainer());
+
     }
 
     @Override

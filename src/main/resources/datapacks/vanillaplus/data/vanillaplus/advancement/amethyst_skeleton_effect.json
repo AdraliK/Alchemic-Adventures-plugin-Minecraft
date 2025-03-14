@@ -1,0 +1,23 @@
+{
+  "parent": "vanillaplus:new_mobs",
+  "criteria": {
+    "amethust_skeleton_effect": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:ender_pearl"
+    },
+    "title": {
+      "text": "Ослепительное поражение"
+    },
+    "description": {
+      "text": "Получи эффект слепоты от «Аметистового скелета»"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  }
+}

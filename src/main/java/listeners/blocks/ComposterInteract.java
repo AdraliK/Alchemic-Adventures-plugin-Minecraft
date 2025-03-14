@@ -1,5 +1,6 @@
 package listeners.blocks;
 
+import helpers.DatapackUtils;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -38,6 +39,8 @@ public class ComposterInteract implements Listener {
 
         Levelled composterData = (Levelled) block.getBlockData();
         int currentLevel = composterData.getLevel();
+
+        DatapackUtils.grantAdvancement(player, "use_composter");
 
         if (addLevelWithChance(currentLevel, composterData, block, item)) return;
 

@@ -1,6 +1,7 @@
 package customMobs;
 
 import adralik.vanillaPlus.Main;
+import helpers.DatapackUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -86,6 +87,8 @@ public class SpiderWebShooter implements Listener {
                             if (web.getLocation().distance(target.getLocation()) < 1.5) {
                                 Location webLocation = target.getLocation().getBlock().getLocation();
                                 spawnCobweb(webLocation);
+
+                                DatapackUtils.grantAdvancement(target, "spider_cobweb");
 
                                 web.remove();
                                 this.cancel();
