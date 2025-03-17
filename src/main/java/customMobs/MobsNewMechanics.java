@@ -1,5 +1,6 @@
 package customMobs;
 
+import helpers.DatapackUtils;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -41,6 +42,7 @@ public class MobsNewMechanics implements Listener {
         if (e.getFinalDamage() <= 0) return;
 
         player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, zombieDurationEffect, 5));
+        DatapackUtils.grantAdvancement(player, "zombie_damage");
     }
 
     @EventHandler

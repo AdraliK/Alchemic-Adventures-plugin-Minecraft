@@ -1,5 +1,6 @@
 package listeners.items;
 
+import helpers.DatapackUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -39,6 +40,8 @@ public class CustomMinecart implements Listener {
 
             player.setSneaking(false);
             minecart.addPassenger(player);
+
+            DatapackUtils.grantAdvancement(player, "new_minecart");
 
             Vector direction = player.getLocation().getDirection().setY(0).normalize().multiply(0.2);
             minecart.setVelocity(direction);

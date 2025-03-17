@@ -1,0 +1,23 @@
+{
+  "parent": "vanillaplus:new_func_blocks",
+  "criteria": {
+    "use_composter": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:composter"
+    },
+    "title": {
+      "text": "Отходы в доходы!"
+    },
+    "description": {
+      "text": "Используй «Гнилой картофель» или «Гнилую плоть» как удобрение в компостере"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+	"hidden": false
+  }
+}

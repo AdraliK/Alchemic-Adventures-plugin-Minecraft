@@ -1,21 +1,22 @@
 package customMobs;
 
+import helpers.DatapackUtils;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Skeleton;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.projectiles.ProjectileSource;
 
 import java.util.Random;
 import java.util.Set;
@@ -40,6 +41,7 @@ public class AmethystSkeleton implements Listener {
             int level = getSkeletonLevel(spawnY);
             setSkeletonHealth(skeleton, level);
             assignSkeletonHelmet(skeleton, level);
+            skeleton.addScoreboardTag("amethyst_skeleton_" + level);
         }
     }
 
@@ -62,6 +64,7 @@ public class AmethystSkeleton implements Listener {
 
         if (random.nextDouble() <= effectChance) {
             applyPotionEffect(player, durationEffect, maxDurationEffect);
+            DatapackUtils.grantAdvancement(player, "amethyst_skeleton_effect");
         }
     }
 

@@ -1,0 +1,28 @@
+{
+  "parent": "vanillaplus:new_mobs",
+  "criteria": {
+    "tropic_skeleton_effect": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:tipped_arrow",
+	  	"components": {
+		"minecraft:potion_contents": {
+			"potion": "minecraft:poison"
+		}
+	  }
+    },
+    "title": {
+      "text": "Тропический коктейль"
+    },
+    "description": {
+      "text": "Получи эффект отревления от «Тропического скелета»"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  }
+}
