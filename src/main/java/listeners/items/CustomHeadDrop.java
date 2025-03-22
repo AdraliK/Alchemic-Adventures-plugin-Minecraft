@@ -1,6 +1,7 @@
 package listeners.items;
 
 import adralik.vanillaPlus.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
@@ -30,7 +31,6 @@ public class CustomHeadDrop implements Listener {
             if (meta.hasLore()) {
                 String lore = String.join("|", meta.getLore());
                 data.set(key, PersistentDataType.STRING, lore);
-                item.setItemMeta(meta);
             }
 
             Block block = event.getBlockPlaced();
@@ -60,7 +60,7 @@ public class CustomHeadDrop implements Listener {
         }).toList();
 
         event.setDropItems(false);
-        modifiedDrops.forEach(drop -> block.getWorld().dropItemNaturally(block.getLocation(), drop));
+        modifiedDrops.forEach(drop -> block.getWorld().dropItemNaturally(block.getLocation().add(0.5, 0.5, 0.5), drop));
     }
 
     private boolean isValidHead(ItemStack item) {
