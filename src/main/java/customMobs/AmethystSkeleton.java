@@ -2,6 +2,7 @@ package customMobs;
 
 import helpers.DatapackUtils;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.EntityType;
@@ -33,6 +34,7 @@ public class AmethystSkeleton implements Listener {
         if (event.getEntityType() != EntityType.SKELETON) return;
 
         Skeleton skeleton = (Skeleton) event.getEntity();
+        if (skeleton.getWorld().getEnvironment() != World.Environment.NORMAL) return;
 
         double spawnY = skeleton.getLocation().getY();
         double spawnChance = config.getDouble(configPath + ".spawn-chance");
