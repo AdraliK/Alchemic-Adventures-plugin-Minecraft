@@ -1,6 +1,5 @@
 package adralik.vanillaPlus;
 
-import customMobs.CustomMobs;
 import listeners.Listeners;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -27,11 +26,9 @@ public final class Main extends JavaPlugin implements Listener {
         config = javaPlugin.getConfig();
 
         Listeners.init();
-        CustomMobs.init();
         Bukkit.getPluginManager().registerEvents(this, this);
 
         //DatapackUtils.setupDatapack(this, getServer().getWorldContainer());
-
     }
 
     @Override

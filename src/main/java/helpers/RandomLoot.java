@@ -1,5 +1,8 @@
 package helpers;
 
+import listeners.items.customHeads.CustomHead;
+import listeners.items.customHeads.HeadType;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -23,13 +26,9 @@ public class RandomLoot {
         itemStack = new ItemStack(material, 1);
     }
 
-    public RandomLoot(String name, String lore, String base64, double chance) {
+    public RandomLoot(HeadType headType, double chance) {
         this.chance = chance;
-        itemStack = SkullCreator.itemFromBase64(base64);
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(name);
-        itemMeta.setLore(List.of(lore));
-        itemStack.setItemMeta(itemMeta);
+        itemStack = new CustomHead(headType).getItem();
     }
 
     private int getAmount(int minAmount, int maxAmount){
@@ -41,7 +40,7 @@ public class RandomLoot {
     }
 
     public ItemStack getItem(){
-        return itemStack;
+        return itemStack.clone();
     }
 }
 
