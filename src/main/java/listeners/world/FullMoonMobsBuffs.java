@@ -124,6 +124,7 @@ public class FullMoonMobsBuffs implements Listener {
         LivingEntity entity = event.getEntity();
         World world = entity.getWorld();
 
+        if (entity.getKiller() == null) return;
         if (shouldCancelEvent(entity, world)) return;
 
         // Проверяем, является ли моб враждебным и идет ли сейчас полнолуние
