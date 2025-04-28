@@ -1,6 +1,8 @@
 package listeners.blocks;
 
 import helpers.DatapackUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
@@ -11,9 +13,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class AnvilInteract implements Listener {
 
@@ -75,5 +79,21 @@ public class AnvilInteract implements Listener {
 
             player.sendActionBar("Нажмите ПКМ, чтобы починить наковальню");
         }
+    }
+
+    @EventHandler
+    public void onAnvilRename(PrepareAnvilEvent event) {
+        ItemStack result = event.getResult();
+        if (result == null || !result.hasItemMeta()) return;
+
+        ItemMeta meta = result.getItemMeta();
+        String displayName = meta.getDisplayName();
+        if (displayName.isEmpty()) return;
+
+        Component newName = Component.text(displayName).decoration(TextDecoration.ITALIC, false);
+        meta.displayName(newName);
+
+        result.setItemMeta(meta);
+        event.getInventory().setResult(result);
     }
 }

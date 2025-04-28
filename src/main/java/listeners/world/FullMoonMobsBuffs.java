@@ -2,6 +2,7 @@ package listeners.world;
 
 import adralik.vanillaPlus.Main;
 import helpers.RandomLoot;
+import listeners.items.customHeads.HeadType;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
@@ -14,9 +15,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static adralik.vanillaPlus.Main.config;
 
@@ -148,51 +147,63 @@ public class FullMoonMobsBuffs implements Listener {
         return false;
     }
 
-    private String bagBase64 = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0" +
-            "L3RleHR1cmUvNGNiM2FjZGMxMWNhNzQ3YmY3MTBlNTlmNGM4ZTliM2Q5NDlmZGQzNjRjNjg2OTgzMWNhODc4ZjA3NjNkMTc4NyJ9fX0=";
+    List<RandomLoot> randomLootList = Arrays.asList(
+            new RandomLoot(Material.REDSTONE, 0.35),
+            new RandomLoot(Material.GLOWSTONE_DUST, 0.35),
+            new RandomLoot(Material.LAPIS_LAZULI, 0.35),
 
-    private String cheeseBase64 = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubm" +
-            "V0L3RleHR1cmUvMzE1MzlkYmNkMzZmODc3MjYzMmU1NzM5ZTJlNTE0ODRlZGYzNzNjNTU4ZDZmYjJjNmI2MWI3MmI3Y2FhIn19fQ==";
+            new RandomLoot(Material.IRON_NUGGET, 2, 4, 0.25),
+            new RandomLoot(Material.GOLD_NUGGET, 2, 4, 0.25),
+            new RandomLoot(Material.COPPER_INGOT, 0.25),
 
-    private String chestBase64 = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3R" +
-            "leHR1cmUvNjc0ZDEzYjUxMDE2OGM3YWNiNDRiNjQ0MTY4NmFkN2FiMWNiNWI3NDg4ZThjZGY5ZDViMjJiNDdjNDgzZjIzIn19fQ==";
+            new RandomLoot(Material.SLIME_BALL, 0.08),
 
-    List<List<RandomLoot>> randomLootList = Arrays.asList(
-            Arrays.asList(
-                    new RandomLoot(Material.REDSTONE, 35),
-                    new RandomLoot(Material.GLOWSTONE_DUST, 35),
-                    new RandomLoot(Material.LAPIS_LAZULI, 35)
-            ),
-            Arrays.asList(
-                    new RandomLoot(Material.IRON_NUGGET, 2, 4, 25),
-                    new RandomLoot(Material.GOLD_NUGGET, 2, 4, 25),
-                    new RandomLoot(Material.COPPER_INGOT, 25)
-            ),
-            Arrays.asList(
-                    new RandomLoot(Material.EMERALD, 15),
-                    new RandomLoot(Material.IRON_INGOT, 15),
-                    new RandomLoot(Material.GOLD_INGOT, 15)
-            ),
-            List.of(new RandomLoot(Material.SLIME_BALL, 8)),
-            Arrays.asList(
-                    new RandomLoot("§eПрохудившийся мешок", "§7☽ Полная луна", bagBase64, 5),
-                    new RandomLoot("§eОсколок сыра", "§7☽ Полная луна", cheeseBase64, 5),
-                    new RandomLoot("§eЗаплесневевший сундук", "§7☽ Полная луна", chestBase64, 5)
-            )
+            new RandomLoot(HeadType.LEAKY_BAG, 0.05),
+            new RandomLoot(HeadType.PIECE_CHEESE, 0.03),
+            new RandomLoot(HeadType.RADIANT_HELMET, 0.03)
     );
 
-    public ItemStack getRandomLoot(List<List<RandomLoot>> RandomLootList) {
-        double chance;
+    private ItemStack getRandomLoot(List<RandomLoot> randomLootList) {
+        if (isEmpty(randomLootList)) return null;
 
-        for (List<RandomLoot> lootGroup : RandomLootList) {
-            chance = random.nextDouble() * 100;
-            if (chance <= lootGroup.getFirst().getChance()){
-                int index = random.nextInt(lootGroup.size());
-                RandomLoot loot = lootGroup.get(index);
-                return loot.getItem();
+        List<RandomLoot> bestCandidates = findBestCandidates(randomLootList);
+
+        if (isEmpty(bestCandidates)) return null;
+
+        return selectRandomItem(bestCandidates);
+    }
+
+    private <T> boolean isEmpty(Collection<T> collection) {
+        return collection == null || collection.isEmpty();
+    }
+
+    private List<RandomLoot> findBestCandidates(List<RandomLoot> randomLootList) {
+        double chance = random.nextDouble();
+        double minChance = 1.1;
+        List<RandomLoot> bestCandidates = null;
+
+        for (RandomLoot loot : randomLootList) {
+            double lootChance = loot.getChance();
+
+            if (lootChance < chance) continue;
+
+            if (lootChance < minChance) {
+                minChance = lootChance;
+                bestCandidates = new ArrayList<>();
+                bestCandidates.add(loot);
+            } else if (lootChance == minChance) {
+                bestCandidates.add(loot);
             }
         }
-        return null; // В случае если шанс не попадает в диапазон
+
+        return bestCandidates;
+    }
+
+    private ItemStack selectRandomItem(List<RandomLoot> candidates) {
+        int index = random.nextInt(candidates.size());
+        RandomLoot loot = candidates.get(index);
+
+        return loot.getItem();
     }
 }
 

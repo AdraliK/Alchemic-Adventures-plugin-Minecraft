@@ -1,6 +1,7 @@
 package listeners;
 
 import adralik.vanillaPlus.Main;
+import customMobs.CustomMobs;
 import listeners.blocks.AnvilInteract;
 import listeners.blocks.CauldronInteract;
 import listeners.blocks.ComposterInteract;
@@ -9,6 +10,7 @@ import listeners.items.CustomHeadDrop;
 import listeners.items.CustomMinecart;
 import listeners.items.SoupFix;
 import listeners.items.TotemCooldown;
+import listeners.items.customHeads.CustomHeadsListeners;
 import listeners.world.*;
 import org.bukkit.Bukkit;
 
@@ -32,9 +34,11 @@ public class Listeners {
         pluginManager.registerEvents(new TotemCooldown(), Main.javaPlugin);
         pluginManager.registerEvents(new CustomMinecart(), Main.javaPlugin);
         pluginManager.registerEvents(new CustomHeadDrop(), Main.javaPlugin);
+        CustomHeadsListeners.init();
 
     //------------------WORLD--------------------//
 
+        CustomMobs.init();
         pluginManager.registerEvents(new MoonPhaseChecker(), Main.javaPlugin);
         pluginManager.registerEvents(new FullMoonMobsBuffs(), Main.javaPlugin);
         pluginManager.registerEvents(new PaleGarden(), Main.javaPlugin);
