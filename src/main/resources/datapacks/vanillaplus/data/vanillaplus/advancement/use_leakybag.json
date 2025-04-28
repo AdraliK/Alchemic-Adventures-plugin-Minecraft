@@ -1,0 +1,23 @@
+{
+  "parent": "vanillaplus:get_bag_head",
+  "criteria": {
+    "use_leakybag": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:bundle"
+    },
+    "title": {
+      "text": "Лунный карман"
+    },
+    "description": {
+      "text": "Используй «Прохудившийся мешок» для хранения уникальных предметов"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+	"hidden": false
+  }
+}

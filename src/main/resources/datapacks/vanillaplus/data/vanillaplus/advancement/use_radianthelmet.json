@@ -1,0 +1,23 @@
+{
+  "parent": "vanillaplus:get_chest_head",
+  "criteria": {
+    "use_radianthelmet": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:golden_sword"
+    },
+    "title": {
+      "text": "Сила лунного света"
+    },
+    "description": {
+      "text": "Используй «Лучезарный шлем» для дополнительного урона по монстрам"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+	"hidden": false
+  }
+}
