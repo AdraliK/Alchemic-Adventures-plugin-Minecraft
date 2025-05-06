@@ -44,5 +44,6 @@ public class Listeners {
         pluginManager.registerEvents(new PaleGarden(), Main.javaPlugin);
         pluginManager.registerEvents(new FarmLandProtection(), Main.javaPlugin);
         pluginManager.registerEvents(new Explosions(), Main.javaPlugin);
+        pluginManager.registerEvents(new JoinProtectionManager(), Main.javaPlugin);
     }
 }
