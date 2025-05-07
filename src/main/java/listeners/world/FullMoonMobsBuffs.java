@@ -158,9 +158,9 @@ public class FullMoonMobsBuffs implements Listener {
 
             new RandomLoot(Material.SLIME_BALL, 0.08),
 
-            new RandomLoot(HeadType.LEAKY_BAG, 0.05),
-            new RandomLoot(HeadType.PIECE_CHEESE, 0.03),
-            new RandomLoot(HeadType.RADIANT_HELMET, 0.03)
+            new RandomLoot(HeadType.LEAKY_BAG, 0.025),
+            new RandomLoot(HeadType.PIECE_CHEESE, 0.015),
+            new RandomLoot(HeadType.RADIANT_HELMET, 0.015)
     );
 
     private ItemStack getRandomLoot(List<RandomLoot> randomLootList) {
