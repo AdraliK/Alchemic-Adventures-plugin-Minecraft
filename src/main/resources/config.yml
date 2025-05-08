@@ -1,3 +1,12 @@
+# Permission for an authorized player
+authorized-permission: "permission"
+
+# The message that is displayed for an unauthorized user
+unauthorized-message:
+  normal: "your text 1"
+  nether: "your text 2"
+  end: "your text 3"
+
 # Configuration of custom mobs
 # The duration of the effects is indicated in ticks
 custom-mobs:
