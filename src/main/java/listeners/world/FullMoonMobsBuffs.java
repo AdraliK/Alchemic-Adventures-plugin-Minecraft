@@ -128,7 +128,7 @@ public class FullMoonMobsBuffs implements Listener {
 
         // Проверяем, является ли моб враждебным и идет ли сейчас полнолуние
         if (entity instanceof Monster) {
-            ItemStack extraLoot = getRandomLoot(randomLootList);
+            ItemStack extraLoot = RandomLoot.getRandomItem(randomLootList);
             if (extraLoot != null) {
                 event.getDrops().add(extraLoot); // Добавляем дополнительный предмет в лут
             }
@@ -143,67 +143,23 @@ public class FullMoonMobsBuffs implements Listener {
     private boolean shouldCancelEvent(Entity entity, World world) {
         if (!isFullMoon(world)) return true;
         if (entity instanceof Silverfish) return true;
-        if (world.getEnvironment() != World.Environment.NORMAL) return true;
-        return false;
+        return world.getEnvironment() != World.Environment.NORMAL;
     }
 
     List<RandomLoot> randomLootList = Arrays.asList(
-            new RandomLoot(Material.REDSTONE, 0.35),
-            new RandomLoot(Material.GLOWSTONE_DUST, 0.35),
-            new RandomLoot(Material.LAPIS_LAZULI, 0.35),
+            new RandomLoot(Material.REDSTONE, 40),
+            new RandomLoot(Material.GLOWSTONE_DUST, 40),
+            new RandomLoot(Material.LAPIS_LAZULI, 40),
 
-            new RandomLoot(Material.IRON_NUGGET, 2, 4, 0.25),
-            new RandomLoot(Material.GOLD_NUGGET, 2, 4, 0.25),
-            new RandomLoot(Material.COPPER_INGOT, 0.25),
+            new RandomLoot(Material.IRON_NUGGET, 2, 4, 30),
+            new RandomLoot(Material.GOLD_NUGGET, 2, 4, 30),
+            new RandomLoot(Material.COPPER_INGOT, 30),
 
-            new RandomLoot(Material.SLIME_BALL, 0.08),
+            new RandomLoot(Material.SLIME_BALL, 19),
 
-            new RandomLoot(HeadType.LEAKY_BAG, 0.025),
-            new RandomLoot(HeadType.PIECE_CHEESE, 0.015),
-            new RandomLoot(HeadType.RADIANT_HELMET, 0.015)
+            new RandomLoot(HeadType.LEAKY_BAG, 3),
+            new RandomLoot(HeadType.PIECE_CHEESE, 2),
+            new RandomLoot(HeadType.RADIANT_HELMET, 2)
     );
-
-    private ItemStack getRandomLoot(List<RandomLoot> randomLootList) {
-        if (isEmpty(randomLootList)) return null;
-
-        List<RandomLoot> bestCandidates = findBestCandidates(randomLootList);
-
-        if (isEmpty(bestCandidates)) return null;
-
-        return selectRandomItem(bestCandidates);
-    }
-
-    private <T> boolean isEmpty(Collection<T> collection) {
-        return collection == null || collection.isEmpty();
-    }
-
-    private List<RandomLoot> findBestCandidates(List<RandomLoot> randomLootList) {
-        double chance = random.nextDouble();
-        double minChance = 1.1;
-        List<RandomLoot> bestCandidates = null;
-
-        for (RandomLoot loot : randomLootList) {
-            double lootChance = loot.getChance();
-
-            if (lootChance < chance) continue;
-
-            if (lootChance < minChance) {
-                minChance = lootChance;
-                bestCandidates = new ArrayList<>();
-                bestCandidates.add(loot);
-            } else if (lootChance == minChance) {
-                bestCandidates.add(loot);
-            }
-        }
-
-        return bestCandidates;
-    }
-
-    private ItemStack selectRandomItem(List<RandomLoot> candidates) {
-        int index = random.nextInt(candidates.size());
-        RandomLoot loot = candidates.get(index);
-
-        return loot.getItem();
-    }
 }
 
