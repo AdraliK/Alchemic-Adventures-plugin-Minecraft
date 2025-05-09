@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
@@ -27,6 +28,7 @@ public class LinkPlayerManager implements Listener {
     private static final String PERMISSION = config.getString("authorized-permission", "permission");
 
     private final HashMap<UUID, BukkitTask> endTasks = new HashMap<>();
+    private final HashMap<UUID, BukkitTask> messageTasks = new HashMap<>();
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
@@ -56,20 +58,46 @@ public class LinkPlayerManager implements Listener {
     private void applyDimensionEffect(World.Environment dimension, Player player) {
         switch (dimension) {
             case NETHER -> {
-                player.sendActionBar(UN_AUTH_MESSAGE_NETHER);
+                sendMessage(player, UN_AUTH_MESSAGE_NETHER, 10);
                 player.setFireTicks(Integer.MAX_VALUE);
             }
             case THE_END -> {
-                player.sendActionBar(UN_AUTH_MESSAGE_END);
+                sendMessage(player, UN_AUTH_MESSAGE_END, 10);
                 applyTheEndEffect(player);
             }
             default -> {
-                player.sendActionBar(UN_AUTH_MESSAGE_NORMAL);
+                sendMessage(player, UN_AUTH_MESSAGE_NORMAL, 15);
                 removeTasks(player);
                 removeEffects(player);
             }
         }
     }
+
+    private void sendMessage(Player player, String message, int seconds) {
+        UUID uuid = player.getUniqueId();
+
+        if (messageTasks.containsKey(uuid)) {
+            messageTasks.remove(uuid).cancel();
+        }
+
+        BukkitTask task = new BukkitRunnable() {
+            int count = 0;
+
+            @Override
+            public void run() {
+                if (count >= seconds || !player.isOnline()) {
+                    this.cancel();
+                    messageTasks.remove(uuid).cancel();
+                    return;
+                }
+                player.sendActionBar(message);
+                count++;
+            }
+        }.runTaskTimer(Main.javaPlugin, 0L, 20L);
+
+        messageTasks.put(uuid, task);
+    }
+
 
     private void applyTheEndEffect(Player player) {
         BukkitTask task = Bukkit.getScheduler().runTaskTimer(Main.javaPlugin, () -> {
