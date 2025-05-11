@@ -8,7 +8,9 @@ import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityPortalEnterEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
@@ -56,6 +58,15 @@ public class CustomMinecart implements Listener {
 
         player.teleport(player.getLocation().add(0, 0.5, 0));
         customMinecarts.remove(minecart.getUniqueId());
+        minecart.remove();
+    }
+
+    @EventHandler
+    public void onEntityPortalEnter(EntityPortalEnterEvent event) {
+        if (!(event.getEntity() instanceof Minecart minecart)) return;
+        if (!customMinecarts.contains(minecart.getUniqueId())) return;
+
+        minecart.eject();
         minecart.remove();
     }
 
