@@ -2,14 +2,8 @@ package listeners;
 
 import adralik.vanillaPlus.Main;
 import customMobs.CustomMobs;
-import listeners.blocks.AnvilInteract;
-import listeners.blocks.CauldronInteract;
-import listeners.blocks.ComposterInteract;
-import listeners.blocks.StonecutterInteract;
-import listeners.items.CustomHeadDrop;
-import listeners.items.CustomMinecart;
-import listeners.items.SoupFix;
-import listeners.items.TotemCooldown;
+import listeners.blocks.*;
+import listeners.items.*;
 import listeners.items.customHeads.CustomHeadsListeners;
 import listeners.world.*;
 import org.bukkit.Bukkit;
@@ -27,6 +21,7 @@ public class Listeners {
         pluginManager.registerEvents(new ComposterInteract(), Main.javaPlugin);
         pluginManager.registerEvents(new AnvilInteract(), Main.javaPlugin);
         pluginManager.registerEvents(new StonecutterInteract(), Main.javaPlugin);
+        pluginManager.registerEvents(new WaxedBlockInteract(), Main.javaPlugin);
 
     //------------------ITEMS--------------------//
 
