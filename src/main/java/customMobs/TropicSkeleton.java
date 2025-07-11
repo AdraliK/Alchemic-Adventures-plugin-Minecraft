@@ -3,6 +3,7 @@ package customMobs;
 import helpers.DatapackUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -11,7 +12,6 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
@@ -28,6 +28,11 @@ public class TropicSkeleton implements Listener {
     private final double spawnChance = config.getDouble(configPath + ".spawn-chance");
     private final double effectChance = config.getDouble(configPath + ".effect-chance");
     private final int durationEffect = config.getInt(configPath + ".duration-effect");
+    
+    private static final int CLOUD_WAIT_TIME = 0;
+    private static final float CLOUD_RADIUS = 3.0f;
+    private static final int CLOUD_DURATION = 60;
+    private static final int CLOUD_UPDATE_EFFECT = 10;
 
     private final Random random = new Random();
 
@@ -65,39 +70,36 @@ public class TropicSkeleton implements Listener {
 
         if (!(shooter instanceof Skeleton skeleton)) return;
         if (isNotTropicSkeleton(skeleton)) return;
+        if (event.getHitEntity() == null && event.getHitBlock() == null) return;
         if (event.getHitEntity() instanceof Player player && player.isBlocking()) return;
 
         Location hitLocation = event.getEntity().getLocation();
 
-        if (event.getHitEntity() instanceof LivingEntity) {
+        if (event.getHitEntity() != null) {
             hitLocation = event.getHitEntity().getLocation();
-        }
-        if (event.getHitEntity() instanceof Player player) {
-            DatapackUtils.grantAdvancement(player, "tropic_skeleton_effect");
+            if (event.getHitEntity() instanceof Player player) {
+                DatapackUtils.grantAdvancement(player, "tropic_skeleton_effect");
+            }
         }
 
-        ItemStack potionItem = getLingeringPoisonPotion();
-        splashPotion(hitLocation, potionItem);
+        spawnPotionCloud(hitLocation);
     }
 
-    private void splashPotion(Location hitLocation, ItemStack potionItem) {
-        ThrownPotion thrownPotion = hitLocation.getWorld().spawn(hitLocation, ThrownPotion.class);
-        thrownPotion.setItem(potionItem);
-        thrownPotion.splash();
-    }
+    private void spawnPotionCloud(Location location) {
+        if (location == null || location.getWorld() == null) return;
 
-    private ItemStack getLingeringPoisonPotion() {
-        ItemStack potionItem = new ItemStack(Material.LINGERING_POTION);
-        PotionMeta potionMeta = (PotionMeta) potionItem.getItemMeta();
-
-        potionMeta.addCustomEffect(new PotionEffect(
+        AreaEffectCloud cloud = location.getWorld().spawn(location, AreaEffectCloud.class);
+        cloud.setWaitTime(CLOUD_WAIT_TIME);
+        cloud.setRadius(CLOUD_RADIUS);
+        cloud.setDuration(CLOUD_DURATION);
+        cloud.setReapplicationDelay(CLOUD_UPDATE_EFFECT);
+        cloud.addCustomEffect(new PotionEffect(
                 PotionEffectType.POISON,
                 durationEffect,
                 1
         ), true);
-
-        potionItem.setItemMeta(potionMeta);
-        return potionItem;
+        
+        location.getWorld().playSound(location, Sound.ENTITY_SPLASH_POTION_BREAK, 1.0f, 1.0f);
     }
 
     @EventHandler
