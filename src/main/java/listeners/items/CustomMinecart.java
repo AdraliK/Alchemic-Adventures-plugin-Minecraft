@@ -1,6 +1,8 @@
 package listeners.items;
 
 import helpers.DatapackUtils;
+import helpers.HintsManager;
+import helpers.Updater;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -11,7 +13,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPortalEnterEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.util.Vector;
@@ -23,6 +24,10 @@ import java.util.UUID;
 public class CustomMinecart implements Listener {
 
     private final Set<UUID> customMinecarts = new HashSet<>();
+
+    public CustomMinecart() {
+        Updater.addTask(this::onPlayerLookAtRail);
+    }
 
     @EventHandler
     public void onShiftRightClickRail(PlayerInteractEvent event) {
@@ -90,17 +95,14 @@ public class CustomMinecart implements Listener {
         minecart.remove();
     }
 
-    @EventHandler
-    public void onPlayerLookAtRail(PlayerToggleSneakEvent event) {
-        Player player = event.getPlayer();
+    private void onPlayerLookAtRail(Player player) {
+        if (!HintsManager.hasHints(player.getUniqueId())) return;
+
         Block targetBlock = player.getTargetBlockExact(5);
-
-        if (event.isSneaking() &&
-                targetBlock != null &&
-                targetBlock.getType().name().contains("RAIL") &&
-                player.getInventory().getItemInMainHand().getType() == Material.AIR) {
-
-            player.sendActionBar("Нажмите ПКМ, чтобы призвать вагонетку");
+        if (targetBlock != null
+                && targetBlock.getType().name().contains("RAIL")
+                && player.getInventory().getItemInMainHand().getType() == Material.AIR) {
+            player.sendActionBar("Нажмите Shift + ПКМ для призыва вагонетки");
         }
     }
 }

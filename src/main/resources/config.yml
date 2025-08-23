@@ -55,3 +55,7 @@ full-moon-mob-buffs:
   health-multiplier: 1.5
   damage-multiplier: 1.5
   experience-multiplier: 2.0
+
+hints:
+  hints-enabled-message: "hints enabled"
+  hints-disabled-message: "hints disabled"

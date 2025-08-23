@@ -1,6 +1,8 @@
 package listeners.blocks;
 
 import helpers.DatapackUtils;
+import helpers.HintsManager;
+import helpers.Updater;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
@@ -10,16 +12,19 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class AnvilInteract implements Listener {
+
+    public AnvilInteract() {
+        Updater.addTask(this::onPlayerLookAtAnvil);
+    }
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
@@ -67,17 +72,12 @@ public class AnvilInteract implements Listener {
         }
     }
 
-    @EventHandler
-    public void onPlayerLookAtAnvil(PlayerToggleSneakEvent event) {
-        Player player = event.getPlayer();
+    private void onPlayerLookAtAnvil(Player player) {
+        if (!HintsManager.hasHints(player.getUniqueId())) return;
+
         Block targetBlock = player.getTargetBlockExact(5);
-
-        if (event.isSneaking() &&
-                targetBlock != null &&
-                targetBlock.getType().name().contains("_ANVIL") &&
-                player.getInventory().getItemInMainHand().getType() == Material.IRON_INGOT) {
-
-            player.sendActionBar("Нажмите ПКМ, чтобы починить наковальню");
+        if (targetBlock != null && targetBlock.getType().name().contains("_ANVIL")) {
+            player.sendActionBar("Нажмите Shift + ПКМ, используя железные слитки для починки наковальни");
         }
     }
 
