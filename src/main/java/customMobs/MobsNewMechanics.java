@@ -22,7 +22,6 @@ public class MobsNewMechanics implements Listener {
     private final int zombieDurationEffect = config.getInt("custom-mobs.zombie.duration-effect");
     private final double zombieEffectChance = config.getDouble("custom-mobs.zombie.effect-chance");
     private final Random random = new Random();
-    private final int[] expRandom = {3, 3, 4};
 
     @EventHandler
     public void onBatDeath(EntityDeathEvent e) {
@@ -43,13 +42,5 @@ public class MobsNewMechanics implements Listener {
 
         player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, zombieDurationEffect, 5));
         DatapackUtils.grantAdvancement(player, "zombie_damage");
-    }
-
-    @EventHandler
-    public void onSilverfishDeath(EntityDeathEvent event) {
-        if (event.getEntity() instanceof Silverfish) {
-            int exp = random.nextInt(expRandom.length);
-            event.setDroppedExp(exp);
-        }
     }
 }
