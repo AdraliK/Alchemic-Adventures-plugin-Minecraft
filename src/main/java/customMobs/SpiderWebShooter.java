@@ -2,6 +2,7 @@ package customMobs;
 
 import adralik.vanillaPlus.Main;
 import helpers.DatapackUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -86,9 +87,10 @@ public class SpiderWebShooter implements Listener {
                             // Проверяем, попала ли паутина в игрока
                             if (web.getLocation().distance(target.getLocation()) < 1.5) {
                                 Location webLocation = target.getLocation().getBlock().getLocation();
-                                spawnCobweb(webLocation);
 
-                                DatapackUtils.grantAdvancement(target, "spider_cobweb");
+                                if (spawnCobweb(webLocation)) {
+                                    DatapackUtils.grantAdvancement(target, "spider_cobweb");
+                                }
 
                                 web.remove();
                                 this.cancel();
@@ -100,11 +102,17 @@ public class SpiderWebShooter implements Listener {
         }
     }
 
-    private void spawnCobweb(Location webLocation){
+    private boolean spawnCobweb(Location webLocation){
         Block webBlock = webLocation.getBlock();
+        if (!(webBlock.getType() == Material.COBWEB || webBlock.getType() == Material.AIR)) {
+            webBlock = webLocation.add(0,1,0).getBlock();
+            if (webBlock.getType() != Material.AIR) return false;
+        }
         webBlock.setType(Material.COBWEB);
         webBlock.setMetadata(SPIDER_WEB_METADATA, new FixedMetadataValue(Main.javaPlugin, true));
         deleteCobweb(webBlock);
+
+        return true;
     }
 
     private void deleteCobweb(Block webBlock){
