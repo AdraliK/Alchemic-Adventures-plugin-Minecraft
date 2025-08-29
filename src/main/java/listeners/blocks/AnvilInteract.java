@@ -6,6 +6,7 @@ import helpers.Updater;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
 import org.bukkit.block.Block;
@@ -38,7 +39,7 @@ public class AnvilInteract implements Listener {
 
             if (itemInHand.getType() != Material.IRON_INGOT) return;
             if (itemInHand.getAmount() < 3) {
-                e.getPlayer().sendActionBar("Вам нужно как минимум 3 железных слитка, чтобы починить наковальню!");
+                e.getPlayer().sendActionBar("Вам нужно как минимум 3 железных слитка!");
                 e.setCancelled(true);
                 return;
             }
@@ -66,6 +67,7 @@ public class AnvilInteract implements Listener {
                     block.setBlockData(newData);
                 }
                 block.getWorld().playSound(block.getLocation(), Sound.BLOCK_ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 2.0f);
+                block.getWorld().spawnParticle(Particle.HAPPY_VILLAGER, block.getLocation().add(0.5, 1, 0.5), 15, 0.35, 0.5, 0.35, 0.05);
                 DatapackUtils.grantAdvancement(e.getPlayer(), "fix_anvil");
                 e.setCancelled(true);
             }
