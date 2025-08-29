@@ -21,11 +21,11 @@ import static adralik.vanillaPlus.Main.config;
 
 public class FullMoonMobsBuffs implements Listener {
 
-    private final String configPath = "full-moon-mob-buffs";
+    private final String configPath = "events.full-moon.mob-buffs";
 
     private final double healthMultiplier = config.getDouble(configPath + ".health-multiplier");
     private final double damageMultiplier = config.getDouble(configPath + ".damage-multiplier");
-    private final double experienceMultiplier = config.getDouble(configPath + ".experience-multiplier");;
+    private final double experienceMultiplier = config.getDouble(configPath + ".experience-multiplier");
 
     private final Random random = new Random();
 

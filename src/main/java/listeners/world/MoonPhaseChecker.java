@@ -9,7 +9,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import static adralik.vanillaPlus.Main.config;
+
 public class MoonPhaseChecker implements Listener {
+
+    private final String configPath = "events.full-moon.messages";
+
+    private final String warningMessageTitle = config.getString(configPath + ".warning-message.title");
+    private final String warningMessageSubtitle = config.getString(configPath + ".warning-message.subtitle");
+
+    private final String peaceMessageTitle = config.getString(configPath + ".peace-message.title");
+    private final String peaceMessageSubtitle = config.getString(configPath + ".peace-message.subtitle");
 
     private boolean isStart = false;
 
@@ -49,7 +59,7 @@ public class MoonPhaseChecker implements Listener {
 
     private void playSoundAndMessageForAllPlayers(World world) {
         for (Player player : world.getPlayers()) {
-            player.sendTitle("§cПолная Луна!", "§cБудьте осторожны!", 10, 70, 20);
+            player.sendTitle(warningMessageTitle, warningMessageSubtitle, 10, 70, 20);
             player.playSound(player, Sound.ENTITY_RAVAGER_STUNNED, 0.5f, 0.2f);
             DatapackUtils.grantAdvancement(player, "moon");
         }
@@ -57,7 +67,7 @@ public class MoonPhaseChecker implements Listener {
 
     private void sendMessageForAllPlayers(World world) {
         for (Player player : world.getPlayers()) {
-            player.sendTitle("§dТьма уходит", "§dПолнолуние подошло к концу!", 10, 70, 20);
+            player.sendTitle(peaceMessageTitle, peaceMessageSubtitle, 10, 70, 20);
         }
     }
 }

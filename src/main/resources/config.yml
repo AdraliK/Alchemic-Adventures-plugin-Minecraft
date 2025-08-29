@@ -49,12 +49,21 @@ custom-mobs:
   bat:
     duration-effect: 6000
 
-# Mob boost settings during the full moon:
-# How many times more
-full-moon-mob-buffs:
-  health-multiplier: 1.5
-  damage-multiplier: 1.5
-  experience-multiplier: 2.0
+events:
+  full-moon:
+    messages:
+      warning-message:
+        title: "WARNING!"
+        subtitle: ""
+      peace-message:
+        title: "calm"
+        subtitle: ""
+    # Mob boost settings during the full moon:
+    # How many times more
+    mob-buffs:
+      health-multiplier: 1.5
+      damage-multiplier: 1.5
+      experience-multiplier: 2.0
 
 hints:
   hints-enabled-message: "hints enabled"
