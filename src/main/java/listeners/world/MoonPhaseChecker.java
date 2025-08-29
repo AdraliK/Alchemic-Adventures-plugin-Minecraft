@@ -45,7 +45,7 @@ public class MoonPhaseChecker implements Listener {
         }.runTaskTimer(Main.javaPlugin, 0L, 60L);
     }
 
-    private boolean isFullMoon(World world) {
+    public static boolean isFullMoon(World world) {
         long time = world.getFullTime();
         long days = time / 24000;
         int phase = (int) (days % 8); // 8 фаз луны, полнолуние - это 0
