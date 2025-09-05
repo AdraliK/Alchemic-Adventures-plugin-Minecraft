@@ -12,6 +12,7 @@ public class BlockListeners implements ListenerRegister {
                 new AnvilInteract(),
                 new StonecutterInteract(),
                 new WaxedBlockInteract(),
+                new CampfireInteract(),
                 new EnchantingTableInteract()
         );
     }
