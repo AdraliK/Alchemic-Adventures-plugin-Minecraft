@@ -1,4 +1,4 @@
-package customMobs;
+package listeners.customMobs;
 
 import utils.ListenerRegister;
 import utils.ListenerUtils;

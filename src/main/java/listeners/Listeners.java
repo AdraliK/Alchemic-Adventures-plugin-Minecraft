@@ -1,6 +1,6 @@
 package listeners;
 
-import customMobs.MobListeners;
+import listeners.customMobs.MobListeners;
 import listeners.blocks.BlockListeners;
 import listeners.items.ItemListeners;
 import listeners.items.customHeads.CustomHeadsListeners;

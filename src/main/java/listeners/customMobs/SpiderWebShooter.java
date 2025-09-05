@@ -1,8 +1,7 @@
-package customMobs;
+package listeners.customMobs;
 
 import adralik.vanillaPlus.Main;
 import helpers.DatapackUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

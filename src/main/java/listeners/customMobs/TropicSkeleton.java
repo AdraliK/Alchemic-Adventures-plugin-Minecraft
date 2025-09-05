@@ -1,4 +1,4 @@
-package customMobs;
+package listeners.customMobs;
 
 import helpers.DatapackUtils;
 import org.bukkit.Location;
