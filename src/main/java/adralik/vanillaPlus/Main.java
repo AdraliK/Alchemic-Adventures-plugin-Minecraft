@@ -26,7 +26,7 @@ public final class Main extends JavaPlugin implements Listener {
         saveDefaultConfig();
         config = javaPlugin.getConfig();
 
-        Listeners.init();
+        Listeners.register();
         HintsManager.init();
         CommandManager.init();
         PlaceHolders.init();
