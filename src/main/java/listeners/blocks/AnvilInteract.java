@@ -2,7 +2,7 @@ package listeners.blocks;
 
 import helpers.DatapackUtils;
 import helpers.HintsManager;
-import helpers.Updater;
+import helpers.HintsUpdater;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
@@ -24,7 +24,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class AnvilInteract implements Listener {
 
     public AnvilInteract() {
-        Updater.addTask(this::onPlayerLookAtAnvil);
+        HintsUpdater.addTask(this::onPlayerLookAtAnvil);
     }
 
     @EventHandler
@@ -75,8 +75,6 @@ public class AnvilInteract implements Listener {
     }
 
     private void onPlayerLookAtAnvil(Player player) {
-        if (!HintsManager.hasHints(player.getUniqueId())) return;
-
         Block targetBlock = player.getTargetBlockExact(5);
         if (targetBlock != null && targetBlock.getType().name().contains("_ANVIL")) {
             player.sendActionBar("Нажмите Shift + ПКМ, используя железные слитки для починки наковальни");

@@ -2,6 +2,7 @@ package utils;
 
 import commands.CommandManager;
 import helpers.HintsManager;
+import helpers.HintsUpdater;
 import listeners.Listeners;
 import placeholders.PlaceHolders;
 
@@ -13,7 +14,8 @@ public class PluginLoader {
             new Listeners(),
             new HintsManager(),
             new CommandManager(),
-            new PlaceHolders()
+            new PlaceHolders(),
+            new HintsUpdater()
     );
 
     public static void register() {

@@ -2,7 +2,7 @@ package listeners.items;
 
 import helpers.DatapackUtils;
 import helpers.HintsManager;
-import helpers.Updater;
+import helpers.HintsUpdater;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -26,7 +26,7 @@ public class CustomMinecart implements Listener {
     private final Set<UUID> customMinecarts = new HashSet<>();
 
     public CustomMinecart() {
-        Updater.addTask(this::onPlayerLookAtRail);
+        HintsUpdater.addTask(this::onPlayerLookAtRail);
     }
 
     @EventHandler
@@ -96,8 +96,6 @@ public class CustomMinecart implements Listener {
     }
 
     private void onPlayerLookAtRail(Player player) {
-        if (!HintsManager.hasHints(player.getUniqueId())) return;
-
         Block targetBlock = player.getTargetBlockExact(5);
         if (targetBlock != null
                 && targetBlock.getType().name().contains("RAIL")

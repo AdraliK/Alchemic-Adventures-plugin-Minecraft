@@ -1,6 +1,6 @@
 package adralik.vanillaPlus;
 
-import helpers.Updater;
+import helpers.HintsUpdater;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
@@ -23,8 +23,6 @@ public final class Main extends JavaPlugin implements Listener {
         PluginLoader.register();
 
         Bukkit.getPluginManager().registerEvents(this, this);
-
-        new Updater().start();
 
         //DatapackUtils.setupDatapack(this, getServer().getWorldContainer());
     }
