@@ -6,12 +6,14 @@ import listeners.items.ItemListeners;
 import listeners.items.customHeads.CustomHeadsListeners;
 import listeners.world.WorldListeners;
 import utils.ListenerRegister;
+import utils.Loadable;
 
 import java.util.List;
 
-public class Listeners {
+public class Listeners implements Loadable {
 
-    public static void register(){
+    @Override
+    public void register() {
         List<ListenerRegister> listenerGroups = List.of(
                 new WorldListeners(),
                 new MobListeners(),
@@ -20,5 +22,10 @@ public class Listeners {
                 new CustomHeadsListeners()
         );
         listenerGroups.forEach(ListenerRegister::register);
+    }
+
+    @Override
+    public void shutdown() {
+
     }
 }

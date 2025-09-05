@@ -1,20 +1,14 @@
 package adralik.vanillaPlus;
 
-import commands.CommandManager;
-import helpers.HintsManager;
-
 import helpers.Updater;
-import listeners.Listeners;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import placeholders.PlaceHolders;
+import utils.PluginLoader;
 
 public final class Main extends JavaPlugin implements Listener {
 
-    public static PluginManager pluginManager;
     public static JavaPlugin javaPlugin;
     public static FileConfiguration config;
 
@@ -26,10 +20,7 @@ public final class Main extends JavaPlugin implements Listener {
         saveDefaultConfig();
         config = javaPlugin.getConfig();
 
-        Listeners.register();
-        HintsManager.init();
-        CommandManager.init();
-        PlaceHolders.init();
+        PluginLoader.register();
 
         Bukkit.getPluginManager().registerEvents(this, this);
 
@@ -40,6 +31,6 @@ public final class Main extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        HintsManager.save();
+        PluginLoader.shutdown();
     }
 }

@@ -1,10 +1,24 @@
 package placeholders;
 
-public class PlaceHolders {
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import utils.Loadable;
 
-    public static void init() {
-        new HintsPlaceholder().register();
-        new EventStatusPlaceholder().register();
+import java.util.List;
+
+public class PlaceHolders implements Loadable {
+
+    private static final List<PlaceholderExpansion> placeholders = List.of(
+            new HintsPlaceholder(),
+            new EventStatusPlaceholder()
+    );
+
+    @Override
+    public void register() {
+        placeholders.forEach(PlaceholderExpansion::register);
     }
 
+    @Override
+    public void shutdown() {
+
+    }
 }
