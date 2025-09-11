@@ -5,6 +5,7 @@ import helpers.HintsManager;
 import helpers.HintsUpdater;
 import listeners.Listeners;
 import placeholders.PlaceHolders;
+import recipes.CustomRecipes;
 
 import java.util.List;
 
@@ -15,7 +16,8 @@ public class PluginLoader {
             new HintsManager(),
             new CommandManager(),
             new PlaceHolders(),
-            new HintsUpdater()
+            new HintsUpdater(),
+            new CustomRecipes()
     );
 
     public static void register() {

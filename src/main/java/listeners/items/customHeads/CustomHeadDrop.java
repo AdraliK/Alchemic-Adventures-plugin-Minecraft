@@ -1,5 +1,6 @@
-package listeners.items;
+package listeners.items.customHeads;
 
+import listeners.items.customHeads.otherHeads.skinHead.SkinHeadHandler;
 import listeners.items.customHeads.CustomHead;
 import listeners.items.customHeads.HeadType;
 import org.bukkit.Material;
@@ -23,6 +24,10 @@ public class CustomHeadDrop implements Listener {
     private final NamespacedKey displayNameKey = new NamespacedKey("vanillaplus", "display_name");
     private final NamespacedKey loreKey = new NamespacedKey("vanillaplus", "head_lore");
 
+    private final List<HeadHandler> customHeadHandlers = List.of(
+            new SkinHeadHandler()
+    );
+
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         ItemStack item = event.getItemInHand();
@@ -35,6 +40,7 @@ public class CustomHeadDrop implements Listener {
         if (block.getState() instanceof Skull skull) {
             copyMetaToBlock(meta, skull);
             skull.update();
+            customHeadHandlers.forEach(x -> x.onPlace(event, skull, item));
         }
     }
 
@@ -55,6 +61,8 @@ public class CustomHeadDrop implements Listener {
 
         copyMetaFromBlock(blockData, meta);
         drop.setItemMeta(meta);
+
+        customHeadHandlers.forEach(x -> x.onBreak(event, skull, drop));
 
         event.setDropItems(false);
         block.getWorld().dropItemNaturally(block.getLocation().add(0.5, 0.5, 0.5), drop);

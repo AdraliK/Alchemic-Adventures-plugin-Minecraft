@@ -18,6 +18,8 @@ public abstract class BaseHead {
     protected HeadType headType;
     protected double armorValue = 0;
 
+    protected static final double BASE_ARMOR_AMOUNT = 2.0;
+
     public BaseHead(String displayName, List<String> lore, String base64) {
         this.displayName = displayName;
         this.lore = lore;

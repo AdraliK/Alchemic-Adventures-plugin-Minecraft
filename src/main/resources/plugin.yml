@@ -7,3 +7,14 @@ commands:
   hints:
     description: Включить или выключить подсказки
     usage: /hints <on|off>
+
+  givehead:
+    description: Выдать кастомную голову
+    usage: /givehead <player> <head>
+    permission: vanillaplus.givehead
+    permission-message: У вас нет прав для использования этой команды.
+
+permissions:
+    vanillaplus.givehead:
+      default: op
+      description: Позволяет использовать /givehead

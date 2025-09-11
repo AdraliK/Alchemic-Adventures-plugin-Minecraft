@@ -10,6 +10,9 @@ public class CommandManager implements Loadable {
     public void register() {
         javaPlugin.getCommand("hints").setExecutor(new HintsCommand());
         javaPlugin.getCommand("hints").setTabCompleter(new HintsCommand());
+
+        javaPlugin.getCommand("givehead").setExecutor(new CustomHeadCommand());
+        javaPlugin.getCommand("givehead").setTabCompleter(new CustomHeadCommand());
     }
 
     @Override

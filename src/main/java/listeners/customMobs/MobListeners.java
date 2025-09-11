@@ -11,7 +11,8 @@ public class MobListeners implements ListenerRegister {
                 new MobsNewMechanics(),
                 new SpiderWebShooter(),
                 new AmethystSkeleton(),
-                new TropicSkeleton()
+                new TropicSkeleton(),
+                new CustomWanderingTrades()
         );
     }
 }

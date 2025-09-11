@@ -1,6 +1,8 @@
 package listeners.customMobs;
 
 import helpers.DatapackUtils;
+import listeners.items.customHeads.CustomHead;
+import listeners.items.customHeads.HeadType;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
@@ -28,6 +30,7 @@ public class AmethystSkeleton implements Listener {
 
     private final Random random = new Random();
     private final String configPath = "custom-mobs.amethyst-skeleton";
+    private static final double UNDERGROUND_DEPTH_HELMET_DROP_CHANCE = 0.03;
 
     @EventHandler
     public void onAmethystSkeletonSpawn(CreatureSpawnEvent event) {
@@ -80,6 +83,9 @@ public class AmethystSkeleton implements Listener {
 
         if (random.nextDouble() <= dropChance) {
             event.getDrops().add(new ItemStack(Material.AMETHYST_SHARD));
+        }
+        if (level == 4 && random.nextDouble() <= UNDERGROUND_DEPTH_HELMET_DROP_CHANCE) {
+            event.getDrops().add(CustomHead.createHead(HeadType.UNDERGROUND_DEPTH_HELMET));
         }
     }
 

@@ -28,7 +28,7 @@ public class RadiantHelmet extends BaseHead implements Listener {
                 ),
                 "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTNlNGM2Y2FmMDUwOTJlYWM0NzAxY2RiNjYzNTg0YTMyOTM3YzAwZGQzNjE4ZGRmMmM1ZGI4ODY4MDM3ZDhjMSJ9fX0="
         );
-        setArmor(2.0);
+        setArmor(BASE_ARMOR_AMOUNT);
     }
 
     @EventHandler

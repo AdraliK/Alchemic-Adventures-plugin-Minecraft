@@ -30,7 +30,7 @@ public class PieceCheese extends BaseHead implements Listener {
                         ),
                 "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzE1MzlkYmNkMzZmODc3MjYzMmU1NzM5ZTJlNTE0ODRlZGYzNzNjNTU4ZDZmYjJjNmI2MWI3MmI3Y2FhIn19fQ=="
         );
-        setArmor(2.0);
+        setArmor(BASE_ARMOR_AMOUNT);
     }
 
     @EventHandler
