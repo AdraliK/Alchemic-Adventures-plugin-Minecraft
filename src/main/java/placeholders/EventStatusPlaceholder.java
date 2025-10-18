@@ -22,7 +22,7 @@ public class EventStatusPlaceholder extends PlaceholderExpansion
     }
 
     @Override
-    public String onPlaceholderRequest(Player player, String params) { //а если игрок в аду, и полная луна наступила, то какой для него плейсхолдер?
+    public String onPlaceholderRequest(Player player, String params) {
         if (player == null) return "";
 
         if (params.equalsIgnoreCase("status")) {
