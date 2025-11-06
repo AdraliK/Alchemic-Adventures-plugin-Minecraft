@@ -6,7 +6,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import static adralik.vanillaPlus.Main.config;
@@ -35,14 +37,25 @@ public class MoonPhaseChecker implements Listener {
                         .filter(w -> w.getEnvironment() == World.Environment.NORMAL)
                         .findFirst().orElse(null);
                 if (world != null && isFullMoon(world) && !isStart) {
-                    playSoundAndMessageForAllPlayers(world);
+                    playSoundAndMessageToAllPlayers(world);
                     isStart = true;
                 } else if (!isFullMoon(world) && isStart) {
-                    sendMessageForAllPlayers(world);
+                    sendPeaceMessageForAllPlayers(world);
                     isStart = false;
                 }
             }
         }.runTaskTimer(Main.javaPlugin, 0L, 60L);
+    }
+
+    @EventHandler
+    public void onWorldChange(PlayerChangedWorldEvent e) {
+        Player player = e.getPlayer();
+        World world = player.getWorld();
+
+        if (world.getEnvironment() != World.Environment.NORMAL) return;
+        if (!isFullMoon(world)) return;
+
+        playSoundAndSendWarningMessageTo(player);
     }
 
     public static boolean isFullMoon(World world) {
@@ -57,15 +70,19 @@ public class MoonPhaseChecker implements Listener {
         return phase == 0 && isNight;
     }
 
-    private void playSoundAndMessageForAllPlayers(World world) {
+    private void playSoundAndMessageToAllPlayers(World world) {
         for (Player player : world.getPlayers()) {
-            player.sendTitle(warningMessageTitle, warningMessageSubtitle, 10, 70, 20);
-            player.playSound(player, Sound.ENTITY_RAVAGER_STUNNED, 0.5f, 0.2f);
-            DatapackUtils.grantAdvancement(player, "moon");
+            playSoundAndSendWarningMessageTo(player);
         }
     }
 
-    private void sendMessageForAllPlayers(World world) {
+    private void playSoundAndSendWarningMessageTo(Player player) {
+        player.sendTitle(warningMessageTitle, warningMessageSubtitle, 10, 70, 20);
+        player.playSound(player, Sound.ENTITY_RAVAGER_STUNNED, 0.5f, 0.2f);
+        DatapackUtils.grantAdvancement(player, "moon");
+    }
+
+    private void sendPeaceMessageForAllPlayers(World world) {
         for (Player player : world.getPlayers()) {
             player.sendTitle(peaceMessageTitle, peaceMessageSubtitle, 10, 70, 20);
         }
