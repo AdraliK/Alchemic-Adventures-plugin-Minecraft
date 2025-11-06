@@ -20,7 +20,7 @@ public class RadiantHelmet extends BaseHead implements Listener {
         super(
                 "§eЛучезарный шлем",
                 List.of(
-                        "§7☽ Полная луна",
+                        "§7ऑ Полнолуние",
                         "",
                         "§7Усиливает урон:",
                         "§9+10% к урону по монстрам"

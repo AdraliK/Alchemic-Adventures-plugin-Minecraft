@@ -31,7 +31,7 @@ import java.util.function.Predicate;
 public class LeakyBag extends BaseHead implements Listener {
 
     private static final List<String> defaultLore = List.of(
-            "§7☽ Полная луна",
+            "§7ऑ Полнолуние",
             "",
             "§7Позволяет хранить",
             "§7уникальные предметы"

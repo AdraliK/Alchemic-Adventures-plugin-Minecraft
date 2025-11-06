@@ -22,7 +22,7 @@ public class PieceCheese extends BaseHead implements Listener {
         super(
                 "§eОсколок сыра",
                 List.of(
-                        "§7☽ Полная луна",
+                        "§7ऑ Полнолуние",
                         "",
                         "§7Усиливает еду:",
                         "§9+3 к голоду и насыщению"
