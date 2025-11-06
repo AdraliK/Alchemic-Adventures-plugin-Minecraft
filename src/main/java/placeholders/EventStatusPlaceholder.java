@@ -2,6 +2,7 @@ package placeholders;
 
 import listeners.world.MoonPhaseChecker;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 public class EventStatusPlaceholder extends PlaceholderExpansion
@@ -26,7 +27,9 @@ public class EventStatusPlaceholder extends PlaceholderExpansion
         if (player == null) return "";
 
         if (params.equalsIgnoreCase("status")) {
-            return MoonPhaseChecker.isFullMoon(player.getWorld()) ? "fullMoon" : "false";
+            return player.getWorld().getEnvironment() == World.Environment.NORMAL
+                    && MoonPhaseChecker.isFullMoon(player.getWorld())
+                    ? "fullMoon" : "false";
         }
 
         return null;
