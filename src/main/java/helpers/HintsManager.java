@@ -43,7 +43,7 @@ public class HintsManager implements Loadable {
     }
 
     public static void save() {
-        config.set("enabled", disableHints.stream().map(UUID::toString).toList());
+        config.set("disabled", disableHints.stream().map(UUID::toString).toList());
         try {
             config.save(file);
         } catch (IOException e) {
