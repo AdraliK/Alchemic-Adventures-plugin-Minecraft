@@ -2,78 +2,84 @@ package listeners.blocks;
 
 import adralik.vanillaPlus.Main;
 import helpers.DatapackUtils;
-import io.papermc.paper.event.entity.EntityMoveEvent;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class StonecutterInteract implements Listener {
 
-    private final Set<UUID> entitiesOnStonecutter = new HashSet<>();
+    private final Set<UUID> playersOnStonecutter = new HashSet<>();
 
-    @EventHandler
-    public void onEntityMove(EntityMoveEvent e) {
-        Entity entity = e.getEntity();
-        if (entity.getType() == EntityType.SILVERFISH) return;
-        if (!(entity instanceof LivingEntity livingEntity)) {
-            return;
+    public StonecutterInteract() {
+        startUpdate();
+    }
+
+    private void startUpdate() {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                checkMobsNearStonecutters();
+            }
+        }.runTaskTimer(Main.javaPlugin, 0L, 10L);
+    }
+
+    private void checkMobsNearStonecutters() {
+        for (World world : Bukkit.getWorlds()) {
+            if (world.getPlayers().isEmpty()) continue;
+
+            for (Chunk chunk : world.getLoadedChunks()) {
+                for (Entity entity : chunk.getEntities()) {
+                    if (!(entity instanceof LivingEntity livingEntity) || entity instanceof Player) {
+                        continue;
+                    }
+                    boolean isEntityOnStonecutter =
+                            livingEntity.getLocation().getBlock().getType() == Material.STONECUTTER;
+
+                    if (isEntityOnStonecutter) {
+                        livingEntity.damage(1.0);
+                    }
+                }
+            }
         }
-        damageEntityFromStonecutter(livingEntity);
     }
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
         Player player = e.getPlayer();
-        damageEntityFromStonecutter(player);
+        damagePlayerFromStonecutter(player);
     }
 
-    private void damageEntityFromStonecutter(LivingEntity livingEntity) {
-        UUID entityUUID = livingEntity.getUniqueId();
-        boolean isOnStonecutter = livingEntity.getLocation().getBlock().getType() == Material.STONECUTTER;
+    private void damagePlayerFromStonecutter(Player player) {
+        UUID entityUUID = player.getUniqueId();
+        boolean isOnStonecutter = player.getLocation().getBlock().getType() == Material.STONECUTTER;
 
         if (isOnStonecutter) {
-            entitiesOnStonecutter.add(entityUUID);
-            livingEntity.damage(1.0); // Моментальный урон
+            playersOnStonecutter.add(entityUUID);
+            player.damage(1.0); // Моментальный урон
 
-            if (livingEntity instanceof Player player) {
-                DatapackUtils.grantAdvancement(player, "stonecutter_damage");
-            }
+            DatapackUtils.grantAdvancement(player, "stonecutter_damage");
 
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    if (!entitiesOnStonecutter.contains(entityUUID)) {
+                    if (!playersOnStonecutter.contains(entityUUID)) {
                         cancel();
                         return;
                     }
-                    livingEntity.damage(1.0);
+                    player.damage(1.0);
                 }
-            }.runTaskTimer(Main.javaPlugin, 0L, 10L); // Урон каждую секунду
+            }.runTaskTimer(Main.javaPlugin, 0L, 10L);
 
         } else {
-            entitiesOnStonecutter.remove(entityUUID);
-        }
-    }
-
-    @EventHandler
-    public void onEntityDeath(EntityDeathEvent event) {
-        LivingEntity livingEntity = event.getEntity();
-        UUID livingEntityUUID = livingEntity.getUniqueId();
-
-        if (livingEntity.getLocation().getBlock().getType() == Material.STONECUTTER) {
-            entitiesOnStonecutter.remove(livingEntityUUID);
+            playersOnStonecutter.remove(entityUUID);
         }
     }
 
