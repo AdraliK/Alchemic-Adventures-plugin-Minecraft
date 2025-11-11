@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import static adralik.vanillaPlus.Main.config;
@@ -49,9 +50,20 @@ public class MoonPhaseChecker implements Listener {
 
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent e) {
-        Player player = e.getPlayer();
-        World world = player.getWorld();
+        Bukkit.getScheduler().runTaskLater(Main.javaPlugin, () -> {
+            sendAlertMsgIfWorldChanged(e.getPlayer());
+        }, 3 * 20);
+    }
 
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent e) {
+        Bukkit.getScheduler().runTaskLater(Main.javaPlugin, () -> {
+            sendAlertMsgIfWorldChanged(e.getPlayer());
+        }, 5 * 20);
+    }
+
+    private void sendAlertMsgIfWorldChanged(Player player) {
+        World world = player.getWorld();
         if (world.getEnvironment() != World.Environment.NORMAL) return;
         if (!isFullMoon(world)) return;
 
