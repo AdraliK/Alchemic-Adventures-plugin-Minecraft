@@ -34,7 +34,9 @@ public class LeakyBag extends BaseHead implements Listener {
             "§7ऑ Полнолуние",
             "",
             "§7Позволяет хранить",
-            "§7уникальные предметы"
+            "§7уникальные головы",
+            "",
+            "§8Использование: Shift + ПКМ"
     );
 
     public LeakyBag() {
