@@ -15,7 +15,7 @@ public class SkullCreator {
 		ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
 		SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
 		if (skullMeta != null) {
-			PlayerProfile profile = Bukkit.createProfile("CustomHead");
+			PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID(), "CustomHead");
 			profile.setProperty(new ProfileProperty("textures", base64));
 			skullMeta.setOwnerProfile(profile);
 			skull.setItemMeta(skullMeta);

@@ -1,5 +1,6 @@
 package listeners.items;
 
+import listeners.items.customHeads.CustomHead;
 import listeners.items.customHeads.HeadType;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -48,7 +49,7 @@ public class CustomHeadDrop implements Listener {
         HeadType headType = getHeadTypeFromBlock(blockData);
         if (headType == null) return;
 
-        ItemStack drop = headType.getHeadItem();
+        ItemStack drop = CustomHead.createHead(headType);
         ItemMeta meta = drop.getItemMeta();
         if (meta == null) return;
 

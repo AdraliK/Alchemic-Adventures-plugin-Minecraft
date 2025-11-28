@@ -6,23 +6,42 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 public class CustomHead {
-    private final ItemStack item;
 
-    public CustomHead(HeadType headType) {
-        item = headType.getHeadItem();
+    private CustomHead() {
+
     }
 
-    public ItemStack getItem() {
-        return item.clone();
+    public static ItemStack createHead(HeadType headType) {
+        return headType.getBaseHead().createItem();
     }
 
     public static boolean is(ItemStack item) {
-        if (item == null || item.getType().isAir() || !item.hasItemMeta()) return false;
+        return getHeadTypeName(item) != null;
+    }
+
+    public static boolean typeIs(ItemStack item, HeadType expectedType) {
+        if (item == null || !item.hasItemMeta()) return false;
+
+        String headTypeName = getHeadTypeName(item);
+        return expectedType.name().equals(headTypeName);
+    }
+
+    public static String getHeadTypeName(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) return null;
 
         ItemMeta meta = item.getItemMeta();
         NamespacedKey key = new NamespacedKey("vanillaplus", "head_type");
+        return meta.getPersistentDataContainer().get(key, PersistentDataType.STRING);
+    }
 
-        return meta.getPersistentDataContainer().has(key, PersistentDataType.STRING);
+    public static HeadType getHeadType(ItemStack item) {
+        String typeName = getHeadTypeName(item);
+        if (typeName == null) return null;
+
+        try {
+            return HeadType.valueOf(typeName);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 }
-

@@ -58,7 +58,7 @@ public class LeakyBag extends BaseHead implements Listener {
         if (!event.getAction().isRightClick() || !event.getPlayer().isSneaking()) return;
 
         ItemStack item = event.getItem();
-        if (!HeadType.is(item, HeadType.LEAKY_BAG)) return;
+        if (!CustomHead.typeIs(item, HeadType.LEAKY_BAG)) return;
 
         event.setCancelled(true);
 
@@ -140,7 +140,7 @@ public class LeakyBag extends BaseHead implements Listener {
     }
 
     private boolean isNotCustomHead(ItemStack item) {
-        return !CustomHead.is(item) || HeadType.is(item, HeadType.LEAKY_BAG);
+        return !CustomHead.is(item) || CustomHead.typeIs(item, HeadType.LEAKY_BAG);
     }
 
     @EventHandler

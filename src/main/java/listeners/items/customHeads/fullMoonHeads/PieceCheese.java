@@ -3,6 +3,7 @@ package listeners.items.customHeads.fullMoonHeads;
 import adralik.vanillaPlus.Main;
 import helpers.DatapackUtils;
 import listeners.items.customHeads.BaseHead;
+import listeners.items.customHeads.CustomHead;
 import listeners.items.customHeads.HeadType;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -29,7 +30,7 @@ public class PieceCheese extends BaseHead implements Listener {
                         ),
                 "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzE1MzlkYmNkMzZmODc3MjYzMmU1NzM5ZTJlNTE0ODRlZGYzNzNjNTU4ZDZmYjJjNmI2MWI3MmI3Y2FhIn19fQ=="
         );
-        addArmorAttribute(2.0);
+        setArmor(2.0);
     }
 
     @EventHandler
@@ -40,7 +41,7 @@ public class PieceCheese extends BaseHead implements Listener {
         if (isNotNaturalFood(item.getType())) return;
 
         ItemStack helmet = player.getInventory().getHelmet();
-        if (!HeadType.is(helmet, HeadType.PIECE_CHEESE)) return;
+        if (!CustomHead.typeIs(helmet, HeadType.PIECE_CHEESE)) return;
 
         DatapackUtils.grantAdvancement(player, "use_piececheese");
 

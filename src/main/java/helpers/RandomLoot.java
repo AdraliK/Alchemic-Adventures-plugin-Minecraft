@@ -9,24 +9,32 @@ import java.util.List;
 import java.util.Random;
 
 public class RandomLoot {
-    
+
     private final int weight;
-    private final ItemStack itemStack;
+    private final Material material;
+    private final HeadType headType;
+    private final int minAmount;
+    private final int maxAmount;
     private static final Random random = new Random();
 
     public RandomLoot(Material material, int minAmount, int maxAmount, int weight) {
         this.weight = weight;
-        itemStack = new ItemStack(material, getAmount(minAmount, maxAmount));
+        this.material = material;
+        this.headType = null;
+        this.minAmount = minAmount;
+        this.maxAmount = maxAmount;
     }
 
     public RandomLoot(Material material, int weight) {
-        this.weight = weight;
-        itemStack = new ItemStack(material, 1);
+        this(material, 1, 1, weight);
     }
 
     public RandomLoot(HeadType headType, int weight) {
         this.weight = weight;
-        itemStack = new CustomHead(headType).getItem();
+        this.material = null;
+        this.headType = headType;
+        this.minAmount = 1;
+        this.maxAmount = 1;
     }
 
     private int getAmount(int minAmount, int maxAmount){
@@ -38,7 +46,12 @@ public class RandomLoot {
     }
 
     public ItemStack getItem(){
-        return itemStack.clone();
+        if (headType != null) {
+            return CustomHead.createHead(headType);
+        } else if (material != null) {
+            return new ItemStack(material, getAmount(minAmount, maxAmount));
+        }
+        return null;
     }
 
     public static ItemStack getRandomItem(List<RandomLoot> lootList) {
@@ -64,4 +77,3 @@ public class RandomLoot {
         return null;
     }
 }
-
