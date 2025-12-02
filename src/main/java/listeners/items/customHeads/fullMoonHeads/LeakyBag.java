@@ -63,6 +63,9 @@ public class LeakyBag extends BaseHead implements Listener {
         event.setCancelled(true);
 
         Player player = event.getPlayer();
+
+        if (!prepareBagForUse(player, item)) return;
+
         Inventory inventory = Bukkit.createInventory(null, 27, getName(item));
 
         ItemMeta meta = item.getItemMeta();
@@ -79,6 +82,11 @@ public class LeakyBag extends BaseHead implements Listener {
         player.openInventory(inventory);
     }
 
+    private boolean prepareBagForUse(Player player, ItemStack item) {
+        boolean hasEmptySlot = player.getInventory().firstEmpty() != -1;
+        return item.getAmount() <= 1 || hasEmptySlot;
+    }
+
     private String getName(ItemStack item) {
         ItemMeta meta = item.getItemMeta();
         if (meta != null && meta.hasDisplayName()) {
@@ -92,7 +100,8 @@ public class LeakyBag extends BaseHead implements Listener {
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
-        UUID uuid = event.getPlayer().getUniqueId();
+        Player player = (Player) event.getPlayer();
+        UUID uuid = player.getUniqueId();
         if (!openInventories.containsKey(uuid)) return;
 
         Inventory inv = openInventories.remove(uuid);
@@ -106,6 +115,30 @@ public class LeakyBag extends BaseHead implements Listener {
         if (meta != null) {
             meta.getPersistentDataContainer().set(HEAD_BAG_KEY, PersistentDataType.STRING, encoded);
             bag.setItemMeta(meta);
+        }
+
+        swapBagsInInventory(bag, contents, player);
+    }
+
+    private void swapBagsInInventory(ItemStack bag, ItemStack[] contents, Player player) {
+        int amount = bag.getAmount();
+        if (amount > 1 && Arrays.stream(contents)
+                .filter(Objects::nonNull)
+                .anyMatch(item -> item.getType() != Material.AIR)) {
+
+            ItemStack singleBag = bag.clone();
+            singleBag.setAmount(1);
+
+            for (int i = 0; i < player.getInventory().getSize(); i++) {
+                if (bag.equals(player.getInventory().getItem(i))) {
+                    ItemStack emptyBag = CustomHead.createHead(HeadType.LEAKY_BAG);
+                    emptyBag.setAmount(amount - 1);
+                    player.getInventory().setItem(i, emptyBag);
+                    break;
+                }
+            }
+
+            player.getInventory().addItem(singleBag);
         }
     }
 
