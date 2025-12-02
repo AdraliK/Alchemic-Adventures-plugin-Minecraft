@@ -195,7 +195,8 @@ public class LeakyBag extends BaseHead implements Listener {
         ItemStack cursor = event.getOldCursor();
 
         boolean isDraggingCustomHeadIntoShulker = type == InventoryType.SHULKER_BOX && CustomHead.is(cursor);
-        boolean isDraggingVanillaIntoCustomBag = openInventories.containsValue(top) && !CustomHead.is(cursor);
+        boolean isDraggingVanillaIntoCustomBag = openInventories.containsValue(top)
+                && (!CustomHead.is(cursor) || CustomHead.typeIs(cursor, HeadType.LEAKY_BAG));
 
         if (!isDraggingCustomHeadIntoShulker && !isDraggingVanillaIntoCustomBag) return;
 
