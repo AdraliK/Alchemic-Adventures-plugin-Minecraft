@@ -8,7 +8,7 @@ public class MinerHelmet extends BaseHead {
 
     public MinerHelmet() {
         super(
-                "§eДворфийская лампа",
+                "§eДваргийский фонарь",
                 List.of(
                         "",
                         "§7Накладывает эффект:",
