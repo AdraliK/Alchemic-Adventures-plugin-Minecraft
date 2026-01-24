@@ -20,6 +20,7 @@ import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import utils.ActionBarLock;
 
 public class AnvilInteract implements Listener {
 
@@ -40,6 +41,7 @@ public class AnvilInteract implements Listener {
             if (itemInHand.getType() != Material.IRON_INGOT) return;
             if (itemInHand.getAmount() < 3) {
                 e.getPlayer().sendActionBar("Вам нужно как минимум 3 железных слитка!");
+                ActionBarLock.lock(e.getPlayer(), 3000);
                 e.setCancelled(true);
                 return;
             }

@@ -4,6 +4,7 @@ import adralik.vanillaPlus.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import utils.ActionBarLock;
 import utils.Loadable;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class HintsUpdater extends BukkitRunnable implements Loadable {
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (!HintsManager.hasHints(player.getUniqueId())) continue;
+            if (ActionBarLock.isLocked(player)) continue;
             for (Consumer<Player> task : tasks) {
                 task.accept(player);
             }

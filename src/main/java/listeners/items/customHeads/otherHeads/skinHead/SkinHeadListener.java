@@ -17,9 +17,12 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.profile.PlayerProfile;
 
+import java.net.URL;
+import java.util.List;
+
 public class SkinHeadListener implements Listener {
 
-    private static final NamespacedKey PLAYER_UUID_KEY = new NamespacedKey("vanillaplus", "player_uuid");
+    private static final NamespacedKey TEXTURE_VALUE_KEY = new NamespacedKey("vanillaplus", "skin_texture_value");
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
@@ -40,10 +43,10 @@ public class SkinHeadListener implements Listener {
 
     private void applyPlayerSkin(ItemStack item, Player player) {
         SkullMeta meta = (SkullMeta) item.getItemMeta();
+        if (meta == null) return;
 
         setPlayerSkin(meta, player);
-        setDataOfUuidPlayer(meta, player);
-        meta.setDisplayName("§eГолова " + player.getName());
+        setItemNameAndLore(meta, player);
 
         item.setItemMeta(meta);
     }
@@ -51,10 +54,23 @@ public class SkinHeadListener implements Listener {
     private void setPlayerSkin(SkullMeta meta, Player player) {
         PlayerProfile profile = player.getPlayerProfile();
         meta.setOwnerProfile(profile);
+
+        URL skinURL = profile.getTextures().getSkin();
+        if (skinURL != null) {
+            String value = skinURL.toString();
+            meta.getPersistentDataContainer().set(TEXTURE_VALUE_KEY, PersistentDataType.STRING, value);
+        }
     }
 
-    private void setDataOfUuidPlayer(SkullMeta meta, Player player) {
-        meta.getPersistentDataContainer().set(PLAYER_UUID_KEY, PersistentDataType.STRING, player.getUniqueId().toString());
+    private void setItemNameAndLore(SkullMeta meta, Player player) {
+        meta.setDisplayName("§eГолова " + player.getName());
+        meta.setLore(
+                List.of(
+                        "",
+                        "§7Можно получить заготовку,",
+                        "§7поместив в верстак"
+                )
+        );
     }
 
     @EventHandler
@@ -66,7 +82,7 @@ public class SkinHeadListener implements Listener {
 
         for (ItemStack item : inv.getMatrix()) {
             if (item == null || !item.hasItemMeta()) continue;
-            if(hasSkin(item)) {
+            if (hasSkin(item)) {
                 return;
             }
         }
@@ -78,11 +94,7 @@ public class SkinHeadListener implements Listener {
         if (item == null || !item.hasItemMeta()) return false;
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer container = meta.getPersistentDataContainer();
-        return container.has(PLAYER_UUID_KEY, PersistentDataType.STRING);
-    }
-
-    public static NamespacedKey getPlayerUuidKey() {
-        return PLAYER_UUID_KEY;
+        return container.has(TEXTURE_VALUE_KEY, PersistentDataType.STRING);
     }
 
 }

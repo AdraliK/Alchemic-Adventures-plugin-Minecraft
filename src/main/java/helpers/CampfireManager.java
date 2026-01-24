@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import utils.Loadable;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,13 +16,14 @@ import java.util.Set;
 
 import static adralik.vanillaPlus.Main.javaPlugin;
 
-public class CampfireManager {
+public class CampfireManager implements Loadable {
 
     private static FileConfiguration config;
     private static File file;
     private static final Set<String> campfires = new HashSet<>();
 
-    public static void init() {
+    @Override
+    public void register() {
         file = new File(javaPlugin.getDataFolder(), "campfires.yml");
 
         if (!file.exists()) {
@@ -34,6 +36,11 @@ public class CampfireManager {
 
         config = YamlConfiguration.loadConfiguration(file);
         campfires.addAll(config.getStringList("campfires"));
+    }
+
+    @Override
+    public void shutdown() {
+        save();
     }
 
     public static void save() {

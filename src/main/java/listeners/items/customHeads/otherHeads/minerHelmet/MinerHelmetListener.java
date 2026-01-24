@@ -28,7 +28,7 @@ public class MinerHelmetListener implements Listener {
 
     private final Random random = new Random();
     private final Set<UUID> targetPlayers = new HashSet<>();
-    private static final double GENERATE_CHANCE = 0.12;
+    private static final double GENERATE_CHANCE = 0.2;
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {

@@ -15,9 +15,18 @@ public class UndergroundDepthHelmetListener implements Listener {
     public void onPotionEffect(EntityPotionEffectEvent e) {
         if (!(e.getEntity() instanceof Player player)) return;
         if (e.getAction() != EntityPotionEffectEvent.Action.ADDED) return;
+
         PotionEffect newEffect = e.getNewEffect();
-        if (newEffect == null || newEffect.getType() != PotionEffectType.BLINDNESS) return;
-        if (!CustomHead.typeIs(player.getInventory().getHelmet(), HeadType.UNDERGROUND_DEPTH_HELMET)) return;
+        if (newEffect == null) return;
+
+        PotionEffectType type = newEffect.getType();
+        if (type != PotionEffectType.BLINDNESS && type != PotionEffectType.DARKNESS) return;
+
+        if (!CustomHead.typeIs(
+                player.getInventory().getHelmet(),
+                HeadType.UNDERGROUND_DEPTH_HELMET
+        )) return;
+
         e.setCancelled(true);
     }
 

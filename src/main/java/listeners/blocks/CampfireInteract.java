@@ -62,8 +62,13 @@ public class CampfireInteract implements Listener {
     }
 
     private boolean removeIfCampfireWentOut(Location campfireLoc) {
-        Campfire campfire = (Campfire) campfireLoc.getBlock().getBlockData();
-        if (!campfire.isLit()) {
+        Block block = campfireLoc.getBlock();
+        if (block.getBlockData() instanceof Campfire campfire) {
+            if (!campfire.isLit()) {
+                CampfireManager.removeCampfire(campfireLoc);
+                return true;
+            }
+        } else {
             CampfireManager.removeCampfire(campfireLoc);
             return true;
         }

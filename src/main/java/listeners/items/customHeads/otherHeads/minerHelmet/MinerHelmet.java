@@ -8,13 +8,13 @@ public class MinerHelmet extends BaseHead {
 
     public MinerHelmet() {
         super(
-                "§eКаска рудокопа",
+                "§eДворфийская лампа",
                 List.of(
                         "",
-                        "§7Накладывает эффект",
+                        "§7Накладывает эффект:",
                         "§9Ночное зрение"
                 ),
-                "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDllYzNlNTM3MTBlMDQ5ZTUxMWQyOTZmMDI1N2Q3ZDAzM2Y1OGY4NmRlY2VmODVjNDQ3YTY2YTA4OThjNjk2YyJ9fX0="
+                "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDc0Zjg5NDk0MGM4NGZhMjY3MTYwMWMzOGY5YmRlNTQ3Y2ZhMmQ3YzFhMGNhMzhkZjc5Y2RlMzc0MjJkNmMifX19"
         );
         setArmor(BASE_ARMOR_AMOUNT);
     }

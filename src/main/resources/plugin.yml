@@ -6,7 +6,7 @@ api-version: '1.21.7'
 commands:
   hints:
     description: Включить или выключить подсказки
-    usage: /hints <on|off>
+    usage: /hints
 
   givehead:
     description: Выдать кастомную голову

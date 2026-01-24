@@ -1,7 +1,7 @@
 package listeners.blocks;
 
 import helpers.HintsManager;
-import helpers.Updater;
+import helpers.HintsUpdater;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -10,16 +10,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import utils.ActionBarLock;
 
 import java.util.Random;
 
 public class EnchantingTableInteract implements Listener {
 
     private final Random random = new Random();
-    private static final int lapisCountTrade = 8;
+    private static final int lapisCountTrade = 16;
 
     public EnchantingTableInteract() {
-        Updater.addTask(this::onPlayerLookAtEnchantingTable);
+        HintsUpdater.addTask(this::onPlayerLookAtEnchantingTable);
     }
 
     @EventHandler
@@ -34,7 +35,8 @@ public class EnchantingTableInteract implements Listener {
 
         if (itemInHand.getType() != Material.LAPIS_LAZULI) return;
         if (itemInHand.getAmount() < lapisCountTrade) {
-            e.getPlayer().sendActionBar("Вам нужно как минимум" + lapisCountTrade + " лазурита!");
+            e.getPlayer().sendActionBar("Вам нужно как минимум " + lapisCountTrade + " лазурита!");
+            ActionBarLock.lock(e.getPlayer(), 3000);
             e.setCancelled(true);
             return;
         }

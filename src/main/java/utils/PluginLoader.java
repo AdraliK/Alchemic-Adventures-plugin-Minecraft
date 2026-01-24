@@ -1,6 +1,7 @@
 package utils;
 
 import commands.CommandManager;
+import helpers.CampfireManager;
 import helpers.HintsManager;
 import helpers.HintsUpdater;
 import listeners.Listeners;
@@ -17,6 +18,7 @@ public class PluginLoader {
             new CommandManager(),
             new PlaceHolders(),
             new HintsUpdater(),
+            new CampfireManager(),
             new CustomRecipes()
     );
 
