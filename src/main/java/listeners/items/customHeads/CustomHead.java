@@ -1,5 +1,6 @@
 package listeners.items.customHeads;
 
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -20,10 +21,12 @@ public class CustomHead {
     }
 
     public static boolean typeIs(ItemStack item, HeadType expectedType) {
-        if (item == null || !item.hasItemMeta()) return false;
+        if (item == null || item.getType() != Material.PLAYER_HEAD || !item.hasItemMeta()) {
+            return false;
+        }
 
         String headTypeName = getHeadTypeName(item);
-        return expectedType.name().equals(headTypeName);
+        return expectedType != null && expectedType.name().equals(headTypeName);
     }
 
     public static String getHeadTypeName(ItemStack item) {

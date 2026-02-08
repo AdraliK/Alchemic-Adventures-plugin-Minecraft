@@ -2,6 +2,7 @@ package listeners.items.customHeads.otherHeads.skinHead;
 
 import listeners.items.customHeads.CustomHead;
 import listeners.items.customHeads.HeadType;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -78,16 +79,19 @@ public class SkinHeadListener implements Listener {
         CraftingInventory inv = event.getInventory();
 
         ItemStack result = inv.getResult();
-        if (result == null) return;
-
-        for (ItemStack item : inv.getMatrix()) {
-            if (item == null || !item.hasItemMeta()) continue;
-            if (hasSkin(item)) {
-                return;
-            }
+        if (result == null || !CustomHead.typeIs(result, HeadType.SKIN_HEAD)) {
+            return;
         }
 
-        inv.setResult(null);
+        for (ItemStack item : inv.getMatrix()) {
+            if (item != null && item.getType() == Material.PLAYER_HEAD) {
+                if (!hasSkin(item)) {
+                    inv.setResult(null);
+                    return;
+                }
+                break;
+            }
+        }
     }
 
     private boolean hasSkin(ItemStack item) {
