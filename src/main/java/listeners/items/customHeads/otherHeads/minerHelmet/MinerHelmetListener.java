@@ -2,6 +2,7 @@ package listeners.items.customHeads.otherHeads.minerHelmet;
 
 import adralik.vanillaPlus.Main;
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
+import helpers.DatapackUtils;
 import listeners.items.customHeads.CustomHead;
 import listeners.items.customHeads.HeadType;
 import org.bukkit.Bukkit;
@@ -42,7 +43,15 @@ public class MinerHelmetListener implements Listener {
 
     @EventHandler
     public void onArmorChange(PlayerArmorChangeEvent e) {
-        updateEffect(e.getPlayer());
+        Player player = e.getPlayer();
+
+        ItemStack helmet = player.getInventory().getHelmet();
+        if (CustomHead.typeIs(helmet, HeadType.MINER_HELMET)) {
+            addNightVisionEffect(player);
+            DatapackUtils.grantAdvancement(player, "use_lamp_head");
+        } else if (targetPlayers.contains(player.getUniqueId())) {
+            removeNightVisionEffect(player);
+        }
     }
 
     @EventHandler

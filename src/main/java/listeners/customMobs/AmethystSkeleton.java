@@ -67,7 +67,8 @@ public class AmethystSkeleton implements Listener {
         int durationEffect = config.getInt(configPath + ".levels." + skeletonLevel + ".base-duration");
         int maxDurationEffect = config.getInt(configPath + ".levels." + skeletonLevel + ".max-duration");
 
-        if (random.nextDouble() <= effectChance) {
+        ItemStack helmet = player.getInventory().getHelmet();
+        if (random.nextDouble() <= effectChance && !CustomHead.typeIs(helmet, HeadType.MINER_HELMET)) {
             applyPotionEffect(player, durationEffect, maxDurationEffect);
             DatapackUtils.grantAdvancement(player, "amethyst_skeleton_effect");
         }

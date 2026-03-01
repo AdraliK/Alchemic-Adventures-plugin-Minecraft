@@ -1,5 +1,6 @@
 package listeners.blocks;
 
+import helpers.DatapackUtils;
 import helpers.HintsManager;
 import helpers.HintsUpdater;
 import org.bukkit.*;
@@ -45,6 +46,8 @@ public class EnchantingTableInteract implements Listener {
         e.getPlayer().setEnchantmentSeed(random.nextInt());
 
         playEffects(block);
+
+        DatapackUtils.grantAdvancement(e.getPlayer(), "use_enchant_table");
     }
 
     private void playEffects(Block block) {

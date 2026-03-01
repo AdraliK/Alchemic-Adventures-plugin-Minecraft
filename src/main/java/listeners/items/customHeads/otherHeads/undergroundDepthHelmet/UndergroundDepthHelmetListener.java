@@ -1,5 +1,6 @@
 package listeners.items.customHeads.otherHeads.undergroundDepthHelmet;
 
+import helpers.DatapackUtils;
 import listeners.items.customHeads.CustomHead;
 import listeners.items.customHeads.HeadType;
 import org.bukkit.entity.Player;
@@ -26,6 +27,8 @@ public class UndergroundDepthHelmetListener implements Listener {
                 player.getInventory().getHelmet(),
                 HeadType.UNDERGROUND_DEPTH_HELMET
         )) return;
+
+        DatapackUtils.grantAdvancement(player, "use_amethyst_head");
 
         e.setCancelled(true);
     }

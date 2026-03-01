@@ -1,5 +1,6 @@
 package listeners.items.customHeads.otherHeads.skinHead;
 
+import helpers.DatapackUtils;
 import listeners.items.customHeads.CustomHead;
 import listeners.items.customHeads.HeadType;
 import org.bukkit.Material;
@@ -40,6 +41,8 @@ public class SkinHeadListener implements Listener {
 
         applyPlayerSkin(item, player);
         player.getInventory().setItemInMainHand(item);
+
+        DatapackUtils.grantAdvancement(player, "use_skin_head");
     }
 
     private void applyPlayerSkin(ItemStack item, Player player) {

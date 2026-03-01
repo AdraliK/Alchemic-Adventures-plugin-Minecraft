@@ -1,6 +1,7 @@
 package listeners.blocks;
 
 import helpers.CampfireManager;
+import helpers.DatapackUtils;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.Campfire;
@@ -55,6 +56,7 @@ public class CampfireInteract implements Listener {
                 if (entity instanceof Player player) {
                     if (isPlayerInRadius(campfireLoc, player)) {
                         player.addPotionEffect(CAMPFIRE_REGEN);
+                        DatapackUtils.grantAdvancement(player, "use_campfire");
                     }
                 }
             }
